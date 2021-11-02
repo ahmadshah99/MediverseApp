@@ -4,9 +4,9 @@ import { Text } from 'react-native-elements';
 
 const Landing = () => {
     return (
-        <View>
+        <ScrollView>
             <Text h1 style={styles.titleText}>All you need medical travel companion</Text>
-        </View>
+        </ScrollView>
     )
 };
 
@@ -15,6 +15,6 @@ export default Landing;
 const styles = StyleSheet.create({
     titleText: {
         color: '#035762',
-        fontFamily: 'OpenSans-Regular'
+        fontWeight: 'bold'
     },
 });
