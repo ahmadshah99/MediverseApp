@@ -5,7 +5,7 @@ import { Text, Card, Icon } from 'react-native-elements';
 import landingPageMan from '../assets/images/landing-page-man.png'
 import landingPageMan2 from '../assets/images/landing-page-man-2.png'
 
-import CardButton from "./atoms/CardButton";
+import CardButton from "../components/atoms/CardButton";
 
 
 const Landing = ({ navigation }) => {
@@ -14,15 +14,13 @@ const Landing = ({ navigation }) => {
 
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
-            <View style={styles.landingPageImages}>
-                <Image source={landingPageMan} style={{ height: 200, width: 173 }}/>
-                <Image source={landingPageMan2} style={{ height: 171, width: 190 }}/>
+            <View style={{ margin: 5 }}>
+                <Text h1 style={styles.titleText}>The All-You-Need Medical Travel Companion</Text>
+                <Text h4>What can we do for you?</Text>
             </View>
-            <Text h1 style={styles.titleText}>All you need medical travel companion</Text>
-            <Text h4>What can we do for you?</Text>
             <TouchableHighlight
                 underlayColor="#0a94a6"
-                onPress={() => navigation.navigate('Browse Doctors')}
+                onPress={() => navigation.navigate('Search Doctors')}
             >
                 <CardButton
                     title="Find a doctor"
@@ -30,6 +28,10 @@ const Landing = ({ navigation }) => {
                 />
             </TouchableHighlight>
             <CardButton title="Translate my medicine" icon={medicineButtonIcon} />
+            <View style={styles.landingPageImages}>
+                <Image source={landingPageMan} style={{ height: 200, width: 173 }}/>
+                <Image source={landingPageMan2} style={{ height: 171, width: 190 }}/>
+            </View>
         </ScrollView>
     )
 };
@@ -40,16 +42,19 @@ const styles = StyleSheet.create({
     mainView: {
         flex: 1,
         justifyContent: 'center',
-        padding: 25
+        padding: 10
     },
     landingPageImages: {
         display: 'flex',
         flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'space-between'
     },
     titleText: {
         color: '#035762',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginTop: 15,
+        marginBottom: 15
     },
     buttonView: {
         display: 'flex',
