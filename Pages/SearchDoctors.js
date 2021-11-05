@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, TouchableHighlight, } from 'react-native';
+import {StyleSheet, View } from 'react-native';
 import { Text, Switch, SearchBar, Button } from 'react-native-elements';
 
 const SearchDoctors = ({ navigation }) => {
