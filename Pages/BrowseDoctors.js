@@ -105,8 +105,6 @@ const BrowseDoctors = () => {
         }
     ];
 
-    const DoctorCards = doctors.map(doctor => <DoctorCard doctor={doctor} key={doctor.id} />)
-
     return (
 
         <View style={styles.mainView}>
