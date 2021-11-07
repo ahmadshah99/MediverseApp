@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Landing from "./Pages/Landing";
 import SearchDoctors from "./Pages/SearchDoctors";
 import BrowseDoctors from "./Pages/BrowseDoctors";
+import DoctorProfile from "./Pages/DoctorProfile"
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,10 @@ export default function App() {
             <Stack.Screen
                 name="Browse Doctors"
                 component={BrowseDoctors}
+            />
+            <Stack.Screen
+                name="Doctor Profile"
+                component={DoctorProfile}
             />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,10 +1,10 @@
 import React from 'react';
-import {StyleSheet, Text, View, Image, FlatList} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableHighlight, FlatList} from 'react-native';
 import { Card } from 'react-native-elements';
 
 import DoctorCard from "../components/DoctorCard";
 
-const BrowseDoctors = () => {
+const BrowseDoctors = ({ navigation }) => {
     // list of doctors to render
     const doctors = [
         {
@@ -105,14 +105,19 @@ const BrowseDoctors = () => {
         }
     ];
 
-    return (
+    const renderCards = ({ item }) => {
+        return (
+            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
+                <DoctorCard key={item.id} doctor={item} />
+            </TouchableHighlight>
+        )
+    }
 
+    return (
         <View style={styles.mainView}>
             <FlatList
                 data={doctors}
-                renderItem={({ item }) => (
-                    <DoctorCard doctor={item} />
-                )}
+                renderItem={renderCards}
             />
         </View>
     );
