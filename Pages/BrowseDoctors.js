@@ -116,6 +116,7 @@ const BrowseDoctors = ({ navigation }) => {
     return (
         <View style={styles.mainView}>
             <FlatList
+                removeClippedSubviews
                 data={doctors}
                 renderItem={renderCards}
             />

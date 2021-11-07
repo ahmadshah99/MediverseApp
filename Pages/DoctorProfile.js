@@ -1,6 +1,10 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, FlatList} from 'react-native';
-import { Card, Text, Avatar } from 'react-native-elements';
+import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
+import {Text, Avatar, Icon, Rating} from 'react-native-elements';
+
+import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
+import DoctorReview from "../components/DoctorReview";
+import DoctorCard from "../components/DoctorCard";
 
 const DoctorProfile = ({route}) => {
     const firstTileContent = [
@@ -14,9 +18,58 @@ const DoctorProfile = ({route}) => {
         },
         {
             title: 'Languages Spoken',
-            content: routes.params.item.language
+            content: route.params.item.language.toUpperCase()
         }
     ]
+    const secondTileContent = [
+        {
+            title: 'Insurance Accepted',
+            content:
+                <View>
+                    <Text style={styles.infoText}>Cigna</Text>
+                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Your insurance is accepted here</Text>
+                </View>
+        },
+        {
+            title: 'Payment Plan',
+            content:
+                <View>
+                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Flexible payment plan</Text>
+                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Discounts for non-insurance holders</Text>
+                </View>
+        }
+    ]
+    const reviewers = [
+        {
+            id: 0,
+            name: 'Dylan',
+            location: 'Los Angeles, CA',
+            rating: 5,
+            content: 'Dr. Gould was very sympathetic! She really was super helpful in helping me understand my payment plan too.',
+            imageId: 'dylan'
+        },
+        {
+            id: 1,
+            name: 'Beth',
+            location: 'Bangor, ME',
+            rating: 4,
+            content: 'Dr. Gould was great! Only issue was the wait times.',
+            imageId: 'beth'
+        },
+        {
+            id: 2,
+            name: 'Ethan',
+            location: 'Toronto, ON',
+            rating: 5,
+            content: 'Enjoyed my time there (the care not the illness).',
+            imageId: 'ethan'
+        }
+    ]
+    const renderReviewers = ({ item }) => {
+        return (
+            <DoctorReview key={item.id} review={item} />
+        )
+    }
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.name }</Text>
@@ -31,36 +84,26 @@ const DoctorProfile = ({route}) => {
                     <Text h4>Marrakech Clinics</Text>
                     <Text style={{fontStyle: 'italic'}}>Derb Sidi Messaoud 40</Text>
                     <Text style={{fontStyle: 'italic'}}>Marrakesh, Morocco</Text>
-                </View>
-            </View>
-            <View style={styles.doctorProfileMainInformation}>
-                <View style={styles.doctorInfoCard}>
-                    <View style={styles.doctorInfoCardItems}>
-                        <Text style={styles.infoTitle}>
-                            Speciality
-                        </Text>
-                        <Text style={styles.infoText}>
-                            { route.params.item.role }
-                        </Text>
-                    </View>
-                    <View style={styles.doctorInfoCardItems}>
-                        <Text style={styles.infoTitle}>
-                            Location of practice
-                        </Text>
-                        <Text style={styles.infoText}>
-                            Marrakesh, Morroco
-                        </Text>
-                    </View>
-                    <View styles={styles.doctorInfoCardItems}>
-                        <Text style={styles.infoTitle}>
-                            Language spoken
-                        </Text>
-                        <Text style={styles.infoText}>
-                            { route.params.item.language.toUpperCase() }
-                        </Text>
+                    <View style={styles.doctorActions}>
+                        <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
+                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7'/>
                     </View>
                 </View>
             </View>
+            <ScrollView>
+                <ScrollView contentContainerStyle={styles.doctorProfileMainInformation}>
+                    <DoctorInfoTile tileContent={firstTileContent} />
+                    <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
+                </ScrollView>
+                <ScrollView contentContainerStyle={styles.reviewSection}>
+                    <Text h1>Reviews</Text>
+                    <FlatList
+                        removeClippedSubviews
+                        data={reviewers}
+                        renderItem={renderReviewers}
+                    />
+                </ScrollView>
+            </ScrollView>
         </ScrollView>
     )
 }
@@ -68,7 +111,7 @@ const DoctorProfile = ({route}) => {
 const styles = StyleSheet.create({
     mainView: {
         flex: 1,
-        padding: 10
+        padding: 20
     },
     doctorClinicInfo: {
         display: 'flex',
@@ -76,8 +119,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     doctorProfileMainInformation: {
-       alignItems: 'center',
-        marginTop: 30
+        alignItems: 'center',
+        marginTop: 30,
+        flexGrow: 1
     },
     infoTitle: {
         fontWeight: 'bold',
@@ -86,7 +130,8 @@ const styles = StyleSheet.create({
     },
     infoText: {
         fontStyle: 'italic',
-        fontSize: 20
+        fontSize: 20,
+        marginTop: 10
     },
     doctorInfoCard: {
         display: 'flex',
@@ -103,9 +148,13 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 10,
     },
-    doctorInfoCardItems: {
-
-
+    doctorActions: {
+        display: 'flex',
+        flexDirection: 'row',
+        marginTop: 10
+    },
+    reviewSection: {
+        marginTop: 20
     }
 })
 

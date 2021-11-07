@@ -3,9 +3,9 @@ import {StyleSheet, View, ScrollView, Image, FlatList} from 'react-native';
 import { Card, Text, Avatar } from 'react-native-elements';
 
 const DoctorInfoTile = (props) => {
-    const tileContent = props.titleContent.forEach(tileContentItem => {
+    const tileContent = props.tileContent.map((tileContentItem, index) => {
         return (
-            <View style={styles.doctorInfoCardItems}>
+            <View key={index} style={styles.doctorInfoCardItems}>
                 <Text style={styles.infoTitle}>
                     { tileContentItem.title }
                 </Text>
@@ -15,22 +15,16 @@ const DoctorInfoTile = (props) => {
             </View>
         )
     })
+    const tileTile = props.tileTitle ? <Text h1 style={{ marginBottom: 10 }}>{ props.tileTitle }</Text> : <View />
+    return (
+        <View style={styles.doctorInfoCard}>
+            { tileTile }
+            { tileContent }
+        </View>
+    )
 };
 
 const styles = StyleSheet.create({
-    mainView: {
-        flex: 1,
-        padding: 10
-    },
-    doctorClinicInfo: {
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around'
-    },
-    doctorProfileMainInformation: {
-        alignItems: 'center',
-        marginTop: 30
-    },
     infoTitle: {
         fontWeight: 'bold',
         alignSelf: 'flex-start',
@@ -47,17 +41,16 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#53D8C7',
         minHeight: 300,
+        width: '100%',
         borderRadius: 20,
-        justifyContent: 'space-between',
         padding: 40,
         alignItems: 'flex-start',
-        flex: 1,
         marginTop: 10,
         marginBottom: 10,
     },
     doctorInfoCardItems: {
-
-
+        flex: 1,
+        marginBottom: 10
     }
 })
 
