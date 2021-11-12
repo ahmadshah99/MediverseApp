@@ -3,6 +3,7 @@ import {StyleSheet, Text, View, Image, TouchableHighlight, FlatList} from 'react
 import { Card } from 'react-native-elements';
 
 import DoctorCard from "../components/DoctorCard";
+import Header from "../components/Header";
 
 const BrowseDoctors = ({ navigation }) => {
     // list of doctors to render
@@ -105,9 +106,9 @@ const BrowseDoctors = ({ navigation }) => {
         }
     ];
 
-    const renderCards = ({ item }) => {
+    const renderCards = ({item }) => {
         return (
-            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
+            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {navigation: navigation, item: item})}>
                 <DoctorCard key={item.id} doctor={item} />
             </TouchableHighlight>
         )
@@ -115,7 +116,9 @@ const BrowseDoctors = ({ navigation }) => {
 
     return (
         <View style={styles.mainView}>
+            <Header navigation={navigation}/>
             <FlatList
+                style = {{ marginTop: 50 }}
                 removeClippedSubviews
                 data={doctors}
                 renderItem={renderCards}

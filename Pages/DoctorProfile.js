@@ -5,8 +5,9 @@ import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
+import Header from "../components/Header";
 
-const DoctorProfile = ({route}) => {
+const DoctorProfile = ({navigation, route}) => {
     const firstTileContent = [
         {
             title: 'Speciality',
@@ -72,7 +73,8 @@ const DoctorProfile = ({route}) => {
     }
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
-            <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.name }</Text>
+            <Header navigation={navigation} />
+            <Text h3 style={{ fontWeight: 'bold', marginTop: 80 }}>Dr. { route.params.item.name }</Text>
             <View style={styles.doctorClinicInfo}>
                 <Avatar
                     size="xlarge"
