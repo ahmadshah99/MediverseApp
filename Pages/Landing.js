@@ -27,7 +27,11 @@ const Landing = ({ navigation }) => {
                     icon={doctorButtonIcon}
                 />
             </TouchableHighlight>
-            <CardButton title="Translate my medicine" icon={medicineButtonIcon} />
+
+            <TouchableHighlight underlayColor="#0a94a6" onPress={() => navigation.navigate('Medicine Translator')}>
+                <CardButton title="Translate my medicine" icon={medicineButtonIcon} />
+            </TouchableHighlight>
+            
             <View style={styles.landingPageImages}>
                 <Image source={landingPageMan} style={{ height: 200, width: 173 }}/>
                 <Image source={landingPageMan2} style={{ height: 171, width: 190 }}/>

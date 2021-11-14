@@ -8,6 +8,8 @@ import SearchDoctors from "./Pages/SearchDoctors";
 import BrowseDoctors from "./Pages/BrowseDoctors";
 import DoctorProfile from "./Pages/DoctorProfile";
 import UserProfile from './Pages/UserProfile';
+import MedicineTranslator from './Pages/MedicineTranslator';
+import TranslationResults from './Pages/TranslationResults';
 
 const Stack = createNativeStackNavigator();
 
@@ -34,6 +36,14 @@ export default function App() {
             <Stack.Screen
                 name="User Profile"
                 component={UserProfile}
+            />
+            <Stack.Screen
+                name="Medicine Translator"
+                component={MedicineTranslator}
+            />
+            <Stack.Screen
+                name = "Translation Results"
+                component={TranslationResults}
             />
         </Stack.Navigator>
       </NavigationContainer>
