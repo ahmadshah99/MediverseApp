@@ -24,8 +24,8 @@ const TranslationResults = ({ navigation, route }) => {
         equivMedicine = potentialEquivMedicines.name;
     }
 
-    
-    
+
+
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
@@ -44,16 +44,16 @@ const TranslationResults = ({ navigation, route }) => {
                 title="Translate My Medicine"
                 buttonStyle={{ backgroundColor: "#035762", padding: 15, marginBottom: 25 }}
                 onPress={() => navigation.navigate('Translation Results', {navigation: navigation, medicineName: medicineSearchValue, countryName: route.params.countryName}) }
-            />      
+            />
 
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 5 }}>
                     <Text h4>Input Medicine Name</Text>
                     <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{route.params.medicineName}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).purpose : "Not Found"}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingridient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngridient : "Not Found"}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngredient : "Not Found"}</Text>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>full Ingridient list</Text>
+                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>Full ingredient list</Text>
                         <Entypo name="chevron-down" size={20} color="black" />
                     </View>
                     {/* <Image source={TylenolImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
@@ -76,14 +76,14 @@ const TranslationResults = ({ navigation, route }) => {
                     {/* <Text style = {{ fontSize: 22 }}>Accuracy: <Text style = {{ color: "#27AE60" }}>94%</Text></Text> */}
                     <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{equivMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).purpose}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingridient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngridient}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngredient}</Text>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>full Ingridient list</Text>
+                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>full Ingredient list</Text>
                         <Entypo name="chevron-down" size={20} color="black" />
                     </View>
                     {/* <Image source={DolipraneImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
                 </View>
-                
+
                 : <View><Text>No Known Equivalents Found.</Text></View>
 
             }

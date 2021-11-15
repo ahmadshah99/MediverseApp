@@ -13,14 +13,14 @@ const translationList = [
             {
                 name: "Panadol",
                 countries: ["Dubai"],
-            }, 
+            },
             {
                 name: "Doliprane",
                 countries: ["Morocco"],
             }
         ],
         purpose: "pain relief",
-        activeIngridient: "Acetaminophen" 
+        activeIngredient: "Acetaminophen"
     },
     {
         id: 1,
@@ -35,7 +35,7 @@ const translationList = [
             }
         ],
         purpose: "sexual dysfunction",
-        activeIngridient: "Sildenafil"
+        activeIngredient: "Sildenafil"
     },
     {
         id: 2,
@@ -50,7 +50,7 @@ const translationList = [
             }
         ],
         purpose: "treat severe acne",
-        activeIngridient: "Isotretinoin"
+        activeIngredient: "Isotretinoin"
     }
 ];
 
