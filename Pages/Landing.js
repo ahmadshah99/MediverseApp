@@ -1,21 +1,23 @@
 import React from 'react';
-import {StyleSheet, View, ScrollView, Image, TouchableHighlight} from 'react-native';
+import { StyleSheet, View, ScrollView, Image, TouchableHighlight } from 'react-native';
 import { Text, Card, Icon } from 'react-native-elements';
 
 import landingPageMan from '../assets/images/landing-page-man.png'
 import landingPageMan2 from '../assets/images/landing-page-man-2.png'
 
 import CardButton from "../components/atoms/CardButton";
+import Menu from "../components/Menu";
+
 
 
 const Landing = ({ navigation }) => {
-    const doctorButtonIcon = <Icon name='doctor' type='fontisto' size={50} color='#fff'/>;
-    const medicineButtonIcon = <Icon name='heartbeat' type='font-awesome' size={50} color='#f50'/>;
+    const doctorButtonIcon = <Icon name='doctor' type='fontisto' size={50} color='#fff' />;
+    const medicineButtonIcon = <Icon name='heartbeat' type='font-awesome' size={50} color='#f50' />;
 
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <View style={{ margin: 5 }}>
-                <Text h1 style={styles.titleText}>The All-You-Need Medical Travel Companion</Text>
+                <Text h3 style={styles.titleText}>All-You-Need Medical Travel Companion</Text>
                 <Text h4>What can we do for you?</Text>
             </View>
             <TouchableHighlight
@@ -31,11 +33,12 @@ const Landing = ({ navigation }) => {
             <TouchableHighlight underlayColor="#0a94a6" onPress={() => navigation.navigate('Medicine Translator')}>
                 <CardButton title="Translate my medicine" icon={medicineButtonIcon} />
             </TouchableHighlight>
-            
+
             <View style={styles.landingPageImages}>
-                <Image source={landingPageMan} style={{ height: 200, width: 173 }}/>
-                <Image source={landingPageMan2} style={{ height: 171, width: 190 }}/>
+                <Image source={landingPageMan} style={{ height: 150, width: 123 }} />
+                <Image source={landingPageMan2} style={{ height: 131, width: 140 }} />
             </View>
+            <Menu navigation={navigation} />
         </ScrollView>
     )
 };
@@ -58,7 +61,8 @@ const styles = StyleSheet.create({
         color: '#035762',
         fontWeight: 'bold',
         marginTop: 15,
-        marginBottom: 15
+        marginBottom: 15,
+        textAlign: 'center',
     },
     buttonView: {
         display: 'flex',
