@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
-import { Card, Icon, Avatar } from 'react-native-elements';
-import { color } from 'react-native-reanimated';
+import { Icon } from 'react-native-elements';
 
 
 const Menu = ({ navigation }) => {
@@ -14,23 +13,39 @@ const Menu = ({ navigation }) => {
         language: 'ara',
         rating: 5
     };
+    const MagnifyingGlassIcon = <Icon name='search' type='font-awesome' size={30} color='#000000' />;
+    const UserIcon = <Icon name='user-o' type='font-awesome' size={30} color='#000000' />;
+    const BellIcon = <Icon name='bell-o' type='font-awesome' size={30} color='#000000' />;
+    const PhoneIcon = <Icon name='phone-plus-outline' type='material-community' size={30} color='#FF0000' />;
+    const MedkitIcon = <Icon name='medkit' type='font-awesome' size={30} color='#000000' />;
+
 
     return (
         <View style={styles.footer}>
             <TouchableHighlight onPress={() => navigation.navigate('Search Doctors')}>
-                <Image source={require('../assets/images/menu/MagnifyingGlass.png')} style={{ height: 40, width: 40 }} />
+                <View>
+                    {MagnifyingGlassIcon}
+                </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('User Profile'), { item }}>
-                <Image source={require('../assets/images/menu/User.png')} style={{ height: 40, width: 40 }} />
+                <View>
+                    {UserIcon}
+                </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('')}>
-                <Image source={require('../assets/images/menu/Bell.png')} style={{ height: 40, width: 35 }} />
+                <View>
+                    {BellIcon}
+                </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('Emergency Call')}>
-                <Image source={require('../assets/images/menu/FirstAid.png')} style={{ height: 40, width: 40 }} />
+                <View>
+                    {PhoneIcon}
+                </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('Medicine Translator')}>
-                <Image source={require('../assets/images/menu/FirstAidKit.png')} style={{ height: 40, width: 40 }} />
+                <View>
+                    {MedkitIcon}
+                </View>
             </TouchableHighlight>
         </View>
     )
