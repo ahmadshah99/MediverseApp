@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -8,9 +8,15 @@ import SearchDoctors from "./Pages/SearchDoctors";
 import BrowseDoctors from "./Pages/BrowseDoctors";
 import DoctorProfile from "./Pages/DoctorProfile"
 
+import { getTodos } from "./api/Doctor";
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+    useEffect(() => {
+            getTodos().then(res => console.log(res))
+    })
+
     return (
       <NavigationContainer>
         <Stack.Navigator>
