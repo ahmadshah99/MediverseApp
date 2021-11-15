@@ -14,6 +14,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '1.5',
             language: 'ara',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         },
         {
@@ -22,6 +25,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Cardiac Specialist',
             distance: '2.3',
             language: 'fre',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 4
         },
         {
@@ -30,6 +36,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '2.8',
             language: 'urd',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         },
         {
@@ -38,6 +47,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Pediatrician',
             distance: '3.3',
             language: 'ara',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 3
         },
         {
@@ -46,6 +58,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Pediatrician',
             distance: '6.5',
             language: 'ara',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         },
         {
@@ -54,6 +69,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Pediatrician',
             distance: '13.8',
             language: 'ara',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 3
         },
         {
@@ -62,6 +80,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '15.7',
             language: 'man',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 2
         },
         {
@@ -70,6 +91,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Pediatrician',
             distance: '17.8',
             language: 'heb',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         },
         {
@@ -78,6 +102,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '19.9',
             language: 'fre',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         },
         {
@@ -86,6 +113,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'Psychiatrist',
             distance: '21.7',
             language: 'urd',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 4
         },
         {
@@ -94,6 +124,9 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '26.9',
             language: 'heb',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 1
         },
         {
@@ -102,13 +135,16 @@ const BrowseDoctors = ({ navigation }) => {
             role: 'General Practitioner',
             distance: '35.5',
             language: 'fre',
+            location: 'Marrakesh, Morocco',
+            clinic: 'Marrakech Clinics',
+            clinicAddress: "Derb Sid Messaoud 40",
             rating: 5
         }
     ];
 
     const renderCards = ({item }) => {
         return (
-            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {navigation: navigation, item: item})}>
+            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
                 <DoctorCard key={item.id} doctor={item} />
             </TouchableHighlight>
         )

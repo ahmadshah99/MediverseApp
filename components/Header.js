@@ -4,15 +4,7 @@ import {Card, Icon, Avatar} from 'react-native-elements';
 
 const Header = ({ navigation }) => {
     const rightArrow = <Icon name='arrowright' type='antdesign' color='#53D8C7'/>;
-    const item = 
-        {
-            id: 0,
-            name: 'Terry Day',
-            role: 'General Practitioner',
-            distance: '1.5',
-            language: 'ara',
-            rating: 5
-        };
+
 
     return (
         <View style={styles.header}>
@@ -27,7 +19,7 @@ const Header = ({ navigation }) => {
                 containerStyle={styles.headerProfilePicture}
                 rounded
                 source={require('../assets/images/mock_profile_picture_user.png')}
-                onPress = {() => navigation.navigate('User Profile', {item})}
+                onPress = {() => navigation.navigate('User Profile')}
             />
         </View>
     )

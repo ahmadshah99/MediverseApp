@@ -6,6 +6,7 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from "../components/Header";
+import Booking from "./Booking";
 
 const DoctorProfile = ({navigation, route}) => {
     const firstTileContent = [
@@ -15,7 +16,7 @@ const DoctorProfile = ({navigation, route}) => {
         },
         {
             title: 'Location of Practice',
-            content: 'Marrakesh, Morocco',
+            content: route.params.item.location,
         },
         {
             title: 'Languages Spoken',
@@ -83,12 +84,12 @@ const DoctorProfile = ({navigation, route}) => {
                     source={require('../assets/images/doctor.png')}
                 />
                 <View style={{ margin: 20, marginTop: 30 }}>
-                    <Text h4>Marrakech Clinics</Text>
-                    <Text style={{fontStyle: 'italic'}}>Derb Sidi Messaoud 40</Text>
-                    <Text style={{fontStyle: 'italic'}}>Marrakesh, Morocco</Text>
+                    <Text h4>{route.params.item.clinic}</Text>
+                    <Text style={{fontStyle: 'italic'}}>{route.params.item.clinicAddress}</Text>
+                    <Text style={{fontStyle: 'italic'}}>{route.params.item.location}</Text>
                     <View style={styles.doctorActions}>
                         <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
-                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7'/>
+                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
                     </View>
                 </View>
             </View>

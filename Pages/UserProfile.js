@@ -6,6 +6,7 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from '../components/Header';
+import userItem from '../components/MockUserInfo';
 
 
 //https://icons.expo.fyi/
@@ -23,10 +24,10 @@ const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
 
 {/*  */}
 
-const BasicUserInfo = ({ route }) => {
+const BasicUserInfo = () => {
     return (
         <View>
-            <Text h3 style={{ fontWeight: 'bold' }}>{ route.params.item.name }</Text>
+            <Text h3 style={{ fontWeight: 'bold' }}>{ userItem.name }</Text>
             <View style={styles.userBasicInfo}>
                 <Avatar
                     size={120}
@@ -153,81 +154,17 @@ const PrescriptionsInfo = () => {
     )
 }
 
-const UserProfile = ({navigation, route}) => {
+const UserProfile = ({navigation}) => {
     const [currentTab, setCurrentTab] = useState(0);
-    const firstTileContent = [
-        {
-            title: 'Speciality',
-            content: route.params.item.role
-        },
-        {
-            title: 'Location of Practice',
-            content: 'Marrakesh, Morocco',
-        },
-        {
-            title: 'Languages Spoken',
-            content: route.params.item.language.toUpperCase()
-        }
-    ]
-    const secondTileContent = [
-        {
-            title: 'Insurance Accepted',
-            content:
-                <View>
-                    <Text style={styles.infoText}>Cigna</Text>
-                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Your insurance is accepted here</Text>
-                </View>
-        },
-        {
-            title: 'Payment Plan',
-            content:
-                <View>
-                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Flexible payment plan</Text>
-                    <Text style={styles.infoText}><Icon name='check' type='font-awesome' color='#53D8C7'/>Discounts for non-insurance holders</Text>
-                </View>
-        }
-    ]
-    const reviewers = [
-        {
-            id: 0,
-            name: 'Dylan',
-            location: 'Los Angeles, CA',
-            rating: 5,
-            content: 'Dr. Gould was very sympathetic! She really was super helpful in helping me understand my payment plan too.',
-            imageId: 'dylan'
-        },
-        {
-            id: 1,
-            name: 'Beth',
-            location: 'Bangor, ME',
-            rating: 4,
-            content: 'Dr. Gould was great! Only issue was the wait times.',
-            imageId: 'beth'
-        },
-        {
-            id: 2,
-            name: 'Ethan',
-            location: 'Toronto, ON',
-            rating: 5,
-            content: 'Enjoyed my time there (the care not the illness).',
-            imageId: 'ethan'
-        }
-    ]
-    const renderReviewers = ({ item }) => {
-        return (
-            <DoctorReview key={item.id} review={item} />
-        )
-    }
-
 
 
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
             <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
-            {(currentTab === 0) && <BasicUserInfo route={route} />}
-            {(currentTab === 1) && <MedicalInfo route={route} />}
-            {(currentTab === 2) && <PrescriptionsInfo route={route} />}
+            {(currentTab === 0) && <BasicUserInfo />}
+            {(currentTab === 1) && <MedicalInfo />}
+            {(currentTab === 2) && <PrescriptionsInfo />}
         </ScrollView>
     )
 }
