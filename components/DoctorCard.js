@@ -3,6 +3,8 @@ import {Image, StyleSheet, View} from 'react-native';
 import {Card, Icon, Text} from 'react-native-elements';
 
 const DoctorCard = (props) => {
+    console.log(props.doctor)
+
     return (
         <Card style={styles.doctorCard}>
             <View>
@@ -14,13 +16,13 @@ const DoctorCard = (props) => {
             </View>
             <Card.Divider/>
             <View style={styles.doctorCardContent}>
-                <Card.Title style={styles.titleStyle}>{ props.doctor.name }</Card.Title>
+                <Card.Title style={styles.titleStyle}>{ props.doctor.firstName } {props.doctor.lastName }</Card.Title>
                 <View style={styles.reviewHolder}>
                     <Text h3 style={{ marginBottom: 2}}>5</Text>
                     <Icon  name="star" type="antdesign" size={32} color="#53D8C7" />
                 </View>
             </View>
-            <Text h4>{ props.doctor.role }</Text>
+            <Text h4>{ props.doctor.expertise[0] }</Text>
             <Text h5 style={{ fontStyle: 'italic' }}>
                 <Icon style={{ marginTop: 5 }} name="location-pin" type="entypo" />
                 { props.doctor.distance }km away from your hotel</Text>

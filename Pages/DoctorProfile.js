@@ -10,15 +10,15 @@ const DoctorProfile = ({route}) => {
     const firstTileContent = [
         {
             title: 'Speciality',
-            content: route.params.item.role
+            content: route.params.item.expertise[0]
         },
         {
             title: 'Location of Practice',
-            content: 'Marrakesh, Morocco',
+            content: `${ route.params.item.address.city }, ${ route.params.item.address.country }`,
         },
         {
             title: 'Languages Spoken',
-            content: route.params.item.language.toUpperCase()
+            content: route.params.item.languages[0]
         }
     ]
     const secondTileContent = [
@@ -72,7 +72,7 @@ const DoctorProfile = ({route}) => {
     }
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
-            <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.name }</Text>
+            <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.firstName } { route.params.item.lastName }</Text>
             <View style={styles.doctorClinicInfo}>
                 <Avatar
                     size="xlarge"
@@ -81,9 +81,9 @@ const DoctorProfile = ({route}) => {
                     source={require('../assets/images/doctor.png')}
                 />
                 <View style={{ margin: 20, marginTop: 30 }}>
-                    <Text h4>Marrakech Clinics</Text>
-                    <Text style={{fontStyle: 'italic'}}>Derb Sidi Messaoud 40</Text>
-                    <Text style={{fontStyle: 'italic'}}>Marrakesh, Morocco</Text>
+                    <Text h4>{ route.params.item.clinicName }</Text>
+                    <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.streetAddress }</Text>
+                    <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
                     <View style={styles.doctorActions}>
                         <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
                         <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7'/>

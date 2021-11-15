@@ -8,15 +8,11 @@ import SearchDoctors from "./Pages/SearchDoctors";
 import BrowseDoctors from "./Pages/BrowseDoctors";
 import DoctorProfile from "./Pages/DoctorProfile"
 
-import { getTodos } from "./api/Doctor";
+import {getDoctorsBySearch} from "./api/Doctor";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-    useEffect(() => {
-            getTodos().then(res => console.log(res))
-    })
-
     return (
       <NavigationContainer>
         <Stack.Navigator>

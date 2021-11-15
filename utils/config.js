@@ -1,5 +1,5 @@
 export default {
     api: {
-        baseURL: 'https://jsonplaceholder.typicode.com',
+        baseURL: 'http://localhost:5001',
     },
 };

@@ -38,9 +38,10 @@ returns doctors matching search criteria
 @body{String} sourceAddress
 @body{Boolean} walkin
 @body{Number} maxDistance
+@body{String} sortBy
  */
 export const getDoctorsBySearch = (data) => {
-    return RequestClient.get('doctor/findBySearch', data)
+    return RequestClient.post('doctor/findBySearch', data)
 }
 
 
