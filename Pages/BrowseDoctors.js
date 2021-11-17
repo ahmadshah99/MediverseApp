@@ -3,12 +3,13 @@ import {StyleSheet, Text, View, Image, TouchableHighlight, FlatList} from 'react
 
 import DoctorCard from "../components/DoctorCard";
 import {getDoctorsBySearch} from "../api/Doctor";
+import Header from "../components/Header";
 
 const BrowseDoctors = ({ navigation }) => {
     // list of doctors to render
     const [doctors, setDoctors] = useState([])
 
-    const renderCards = ({ item }) => {
+    const renderCards = ({item }) => {
         return (
             <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
                 <DoctorCard key={item.id} doctor={item} />
@@ -30,7 +31,9 @@ const BrowseDoctors = ({ navigation }) => {
 
     return (
         <View style={styles.mainView}>
+            <Header navigation={navigation}/>
             <FlatList
+                style = {{ marginTop: 50 }}
                 removeClippedSubviews
                 data={doctors}
                 renderItem={renderCards}

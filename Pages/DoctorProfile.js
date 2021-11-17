@@ -5,8 +5,10 @@ import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
+import Header from "../components/Header";
+import Booking from "./Booking";
 
-const DoctorProfile = ({route}) => {
+const DoctorProfile = ({navigation, route}) => {
     const firstTileContent = [
         {
             title: 'Speciality',
@@ -86,7 +88,7 @@ const DoctorProfile = ({route}) => {
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
                     <View style={styles.doctorActions}>
                         <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
-                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7'/>
+                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
                     </View>
                 </View>
             </View>
