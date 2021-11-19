@@ -12,24 +12,25 @@ import TranslationList from '../components/TranslationList';
 
 import CountryFlag from "react-native-country-flag";
 import CountryNameToCode from '../components/CountryNameToCode';
-import countriesList from '../components/countriesList';
 import Menu from '../components/Menu';
 
 const TranslationResults = ({ navigation, route }) => {
     //js code to find output of medcine given route.params.medicineName
 
-
     let equivMedicine = '';
-    let tempCountry = countriesList.find(country => country.alternatives.includes(route.params.countryName));
-    let targetCountry = '';
-    if(tempCountry !== undefined){
-        targetCountry = tempCountry.key;
-    }
-    const [medicineSearchValue, setMedicineSearchValue] = useState('');
-    const doesMedicineExist = TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName));
+    let targetCountry = route.params.countryName;
 
-    if(TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName) && medID.medicines.some(medicine => medicine.countries.includes(targetCountry)))){
-        let potentialEquivMedicines = TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).medicines.find(medicine => medicine.countries.includes(targetCountry));
+    let targetMedicine = ''
+    if(route.params.countryName !== ''){
+        targetMedicine = route.params.medicineName.split(" ").map(word => { return word[0].toUpperCase() + word.substring(1) }).join(" ");
+    }
+
+
+    const [medicineSearchValue, setMedicineSearchValue] = useState('');
+    const doesMedicineExist = TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === targetMedicine));
+
+    if(TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === targetMedicine) && medID.medicines.some(medicine => medicine.countries.includes(targetCountry)))){
+        let potentialEquivMedicines = TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).medicines.find(medicine => medicine.countries.includes(targetCountry));
         equivMedicine = potentialEquivMedicines.name;
     }
 
@@ -59,9 +60,9 @@ const TranslationResults = ({ navigation, route }) => {
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 5 }}>
                     <Text h4>Input Medicine Name</Text>
-                    <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{route.params.medicineName}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).purpose : "Not Found"}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngredient : "Not Found"}</Text>
+                    <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{targetMedicine}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose : "Not Found"}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient : "Not Found"}</Text>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Text style = {{ marginLeft: 130, fontSize: 12 }}>Full ingredient list</Text>
                         <Entypo name="chevron-down" size={20} color="black" />
@@ -85,8 +86,8 @@ const TranslationResults = ({ navigation, route }) => {
                     </View>
                     {/* <Text style = {{ fontSize: 22 }}>Accuracy: <Text style = {{ color: "#27AE60" }}>94%</Text></Text> */}
                     <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{equivMedicine}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).purpose}</Text>
-                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).activeIngredient}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose}</Text>
+                    <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient}</Text>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Text style = {{ marginLeft: 130, fontSize: 12 }}>full Ingredient list</Text>
                         <Entypo name="chevron-down" size={20} color="black" />
