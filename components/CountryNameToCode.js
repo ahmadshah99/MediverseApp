@@ -229,7 +229,6 @@ const CountryNameToCode = [
     {name: 'Uganda', code: 'UG'}, 
     {name: 'Ukraine', code: 'UA'}, 
     {name: 'United Arab Emirates', code: 'AE'},
-    {name: "Dubai", code: "AE"},
     {name: 'United Kingdom', code: 'GB'}, 
     {name: 'United States', code: 'US'},
     {name: "United States of America", code: 'US'},

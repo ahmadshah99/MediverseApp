@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View } from 'react-native';
 import { Text, Switch, SearchBar, Button } from 'react-native-elements';
+import Menu from '../components/Menu';
 
 const SearchDoctors = ({ navigation }) => {
     return (
@@ -35,6 +36,7 @@ const SearchDoctors = ({ navigation }) => {
                 buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
                 onPress={() => navigation.push('Browse Doctors') }
             />
+            <Menu navigation={navigation} />
         </View>
     );
 };
