@@ -12,21 +12,31 @@ import TranslationList from '../components/TranslationList';
 
 import CountryFlag from "react-native-country-flag";
 import CountryNameToCode from '../components/CountryNameToCode';
+import countriesList from '../components/countriesList';
+import Menu from '../components/Menu';
 
 const TranslationResults = ({ navigation, route }) => {
     //js code to find output of medcine given route.params.medicineName
+
+
     let equivMedicine = '';
+    let tempCountry = countriesList.find(country => country.alternatives.includes(route.params.countryName));
+    let targetCountry = '';
+    if(tempCountry !== undefined){
+        targetCountry = tempCountry.key;
+    }
     const [medicineSearchValue, setMedicineSearchValue] = useState('');
     const doesMedicineExist = TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName));
 
-    if(TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName) && medID.medicines.some(medicine => medicine.countries.includes(route.params.countryName)))){
-        let potentialEquivMedicines = TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).medicines.find(medicine => medicine.countries.includes(route.params.countryName));
+    if(TranslationList.some(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName) && medID.medicines.some(medicine => medicine.countries.includes(targetCountry)))){
+        let potentialEquivMedicines = TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === route.params.medicineName)).medicines.find(medicine => medicine.countries.includes(targetCountry));
         equivMedicine = potentialEquivMedicines.name;
     }
 
 
 
     return (
+        <View>
         <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
             <Text style = {{ marginTop: 10, color: "#035762" }}>Please consult a pharmacist or doctor {"\n"}if you intend to use any medication.</Text>
@@ -69,8 +79,8 @@ const TranslationResults = ({ navigation, route }) => {
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Text h4>Known Equivalents </Text>
                         <View style = {{ marginTop: 15 }}>
-                            <CountryFlag isoCode={CountryNameToCode.find(country => country.name === route.params.countryName).code} size={25} />
-                            <Text>{route.params.countryName}</Text>
+                            <CountryFlag isoCode={CountryNameToCode.find(country => country.name === targetCountry).code} size={25} />
+                            <Text>{targetCountry}</Text>
                         </View>
                     </View>
                     {/* <Text style = {{ fontSize: 22 }}>Accuracy: <Text style = {{ color: "#27AE60" }}>94%</Text></Text> */}
@@ -87,8 +97,10 @@ const TranslationResults = ({ navigation, route }) => {
                 : <View><Text>No Known Equivalents Found.</Text></View>
 
             }
-
         </ScrollView>
+            <Menu navigation={navigation} />
+        </View>
+      
     )
 };
 
@@ -96,7 +108,9 @@ export default TranslationResults;
 
 const styles = StyleSheet.create({
     mainView : {
-        padding: 20
+        padding: 20,
+        marginBottom: 250
+
     },
     searchBar: {
         marginBottom: 30,

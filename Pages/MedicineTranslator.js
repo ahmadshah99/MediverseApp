@@ -4,6 +4,7 @@ import { Text, Card, Icon, SearchBar, Button } from 'react-native-elements';
 import Header from '../components/Header';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import Menu from '../components/Menu';
 
 const MedicineTranslator = ({ navigation }) => {
     const [toggleState, setToggleState] = useState(0);
@@ -11,7 +12,8 @@ const MedicineTranslator = ({ navigation }) => {
     const [countrySearchValue, setCountrySearchValue] = useState('');
 
     return (
-        <ScrollView contentContainerStyle={styles.mainView}>
+        <View>
+            <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
             <Text h3 style = {{ marginTop: 10, color: "#035762" }}>Translate My Medicine</Text>
             <SearchBar
@@ -56,7 +58,11 @@ const MedicineTranslator = ({ navigation }) => {
                 buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
                 onPress={() => navigation.navigate('Translation Results', {navigation: navigation, medicineName: medicineSearchValue, countryName: countrySearchValue}) }
             />
+
         </ScrollView>
+        <Menu navigation={navigation} /> 
+        </View>
+
     )
 };
 
@@ -64,7 +70,8 @@ export default MedicineTranslator;
 
 const styles = StyleSheet.create({
     mainView : {
-        padding: 20
+        padding: 20,
+        marginBottom: 250
     },
     searchBar: {
         marginBottom: 30,

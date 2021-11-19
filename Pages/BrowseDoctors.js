@@ -4,6 +4,7 @@ import { Card } from 'react-native-elements';
 
 import DoctorCard from "../components/DoctorCard";
 import Header from "../components/Header";
+import Menu from "../components/Menu";
 
 const BrowseDoctors = ({ navigation }) => {
     // list of doctors to render
@@ -159,6 +160,7 @@ const BrowseDoctors = ({ navigation }) => {
                 data={doctors}
                 renderItem={renderCards}
             />
+            <Menu navigation={navigation} />
         </View>
     );
 };

@@ -4,15 +4,6 @@ import { Icon } from 'react-native-elements';
 
 
 const Menu = ({ navigation }) => {
-    const item =
-    {
-        id: 0,
-        name: 'Terry Day',
-        role: 'General Practitioner',
-        distance: '1.5',
-        language: 'ara',
-        rating: 5
-    };
     const MagnifyingGlassIcon = <Icon name='search' type='font-awesome' size={30} color='#000000' />;
     const UserIcon = <Icon name='user-o' type='font-awesome' size={30} color='#000000' />;
     const BellIcon = <Icon name='bell-o' type='font-awesome' size={30} color='#000000' />;
@@ -27,7 +18,7 @@ const Menu = ({ navigation }) => {
                     {MagnifyingGlassIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('User Profile'), { item }}>
+            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
                 <View>
                     {UserIcon}
                 </View>
@@ -69,7 +60,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        width: '100 %',
+        width: 385,
         padding: 10,
     },
 

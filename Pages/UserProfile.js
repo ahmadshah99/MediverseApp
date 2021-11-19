@@ -7,6 +7,7 @@ import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from '../components/Header';
 import userItem from '../components/MockUserInfo';
+import Menu from '../components/Menu';
 
 
 //https://icons.expo.fyi/
@@ -159,19 +160,24 @@ const UserProfile = ({navigation}) => {
 
 
     return (
-        <ScrollView contentContainerStyle={styles.mainView}>
-            <Header navigation={navigation} />
-            <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
-            {(currentTab === 0) && <BasicUserInfo />}
-            {(currentTab === 1) && <MedicalInfo />}
-            {(currentTab === 2) && <PrescriptionsInfo />}
-        </ScrollView>
+        <View>
+            <ScrollView contentContainerStyle={styles.mainView}>
+                <Header navigation={navigation} />
+                <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
+                {(currentTab === 0) && <BasicUserInfo />}
+                {(currentTab === 1) && <MedicalInfo />}
+                {(currentTab === 2) && <PrescriptionsInfo />}
+            </ScrollView>
+            <Menu navigation={navigation} />
+        </View>
+
     )
 }
 
 const styles = StyleSheet.create({
     mainView: {
-        padding: 20
+        padding: 20,
+        marginBottom: 200
     },
     userBasicInfo: {
         display: 'flex',
