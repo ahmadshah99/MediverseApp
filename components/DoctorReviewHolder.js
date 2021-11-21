@@ -12,6 +12,8 @@ const DoctorReviewHolder = (props) => {
     useEffect(() => {
         getDoctorsByReview(props.doctor._id, 'highestRating').then(res => {
             setReviews(res.data)
+        }).catch(err => {
+            console.debug(err)
         })
     }, [])
 
