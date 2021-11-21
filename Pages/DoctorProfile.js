@@ -1,13 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
 import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
-import DoctorReview from "../components/DoctorReview";
-import DoctorCard from "../components/DoctorCard";
-import Header from "../components/Header";
 import Menu from "../components/Menu";
 import Booking from "./Booking";
+import DoctorReviewHolder from "../components/DoctorReviewHolder";
 
 const DoctorProfile = ({navigation, route}) => {
     const firstTileContent = [
@@ -68,11 +66,6 @@ const DoctorProfile = ({navigation, route}) => {
             imageId: 'ethan'
         }
     ]
-    const renderReviewers = ({ item }) => {
-        return (
-            <DoctorReview key={item.id} review={item} />
-        )
-    }
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.firstName } { route.params.item.lastName }</Text>
@@ -98,14 +91,7 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={firstTileContent} />
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
-                <ScrollView contentContainerStyle={styles.reviewSection}>
-                    <Text h1>Reviews</Text>
-                    <FlatList
-                        removeClippedSubviews
-                        data={reviewers}
-                        renderItem={renderReviewers}
-                    />
-                </ScrollView>
+                <DoctorReviewHolder reviewers={reviewers} doctor={route.params.item} />
             </ScrollView>
             <Menu navigation={navigation} />
         </ScrollView>
@@ -156,9 +142,6 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         marginTop: 10
-    },
-    reviewSection: {
-        marginTop: 20
     }
 })
 
