@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
 import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
-import Menu from "../components/Menu";
 import Booking from "./Booking";
 import DoctorReviewHolder from "../components/DoctorReviewHolder";
 
@@ -40,32 +39,6 @@ const DoctorProfile = ({navigation, route}) => {
                 </View>
         }
     ]
-    const reviewers = [
-        {
-            id: 0,
-            name: 'Dylan',
-            location: 'Los Angeles, CA',
-            rating: 5,
-            content: 'Dr. Gould was very sympathetic! She really was super helpful in helping me understand my payment plan too.',
-            imageId: 'dylan'
-        },
-        {
-            id: 1,
-            name: 'Beth',
-            location: 'Bangor, ME',
-            rating: 4,
-            content: 'Dr. Gould was great! Only issue was the wait times.',
-            imageId: 'beth'
-        },
-        {
-            id: 2,
-            name: 'Ethan',
-            location: 'Toronto, ON',
-            rating: 5,
-            content: 'Enjoyed my time there (the care not the illness).',
-            imageId: 'ethan'
-        }
-    ]
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.firstName } { route.params.item.lastName }</Text>
@@ -91,9 +64,10 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={firstTileContent} />
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
-                <DoctorReviewHolder reviewers={reviewers} doctor={route.params.item} />
+                <View>
+                   <DoctorReviewHolder doctor={route.params.item}/>
+                </View>
             </ScrollView>
-            <Menu navigation={navigation} />
         </ScrollView>
     )
 }

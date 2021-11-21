@@ -46,9 +46,8 @@ export default Menu;
 
 const styles = StyleSheet.create({
     footer: {
-
         flex: 1,
-        marginTop: 15,
+        marginTop: 30,
         flexDirection: 'row',
         display: 'flex',
         alignItems: 'center',

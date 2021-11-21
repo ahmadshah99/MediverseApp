@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {StyleSheet, Text, View, Image, TouchableHighlight, FlatList} from 'react-native';
+import {StyleSheet, View, TouchableHighlight, FlatList} from 'react-native';
 
 import DoctorCard from "../components/DoctorCard";
 import {getDoctorsBySearch} from "../api/Doctor";
@@ -13,7 +13,7 @@ const BrowseDoctors = ({ navigation }) => {
     const renderCards = ({item }) => {
         return (
             <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
-                <DoctorCard key={item.id} doctor={item} />
+                <DoctorCard key={item._id} doctor={item} />
             </TouchableHighlight>
         )
     }

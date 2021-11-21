@@ -1,15 +1,31 @@
 import {FlatList, ScrollView, StyleSheet, TouchableHighlight, View} from "react-native";
 import {Icon, Text} from "react-native-elements";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import DoctorReview from "./DoctorReview";
 import AddReviewOverlay from "./AddReviewOverlay";
+import {getDoctorsByReview} from "../api/DoctorReview";
 
 const DoctorReviewHolder = (props) => {
+    const [reviews, setReviews] = useState([])
     const [reviewsVisible, setReviewsVisible] = useState(false)
 
-    const renderReviewers = ({ item }) => {
+    useEffect(() => {
+        getDoctorsByReview(props.doctor._id, 'highestRating').then(res => {
+            setReviews(res.data)
+        })
+    }, [])
+
+    const handleClose = () => {
+        setReviewsVisible(false)
+        // refresh the reviews when we close the overlay
+        getDoctorsByReview(props.doctor._id, 'highestRating').then(res => {
+            setReviews(res.data)
+        })
+    }
+
+    const renderReviews = ({ item }) => {
         return (
-            <DoctorReview key={item.id} review={item} />
+            <DoctorReview key={item._id} review={item} />
         )
     }
 
@@ -23,15 +39,22 @@ const DoctorReviewHolder = (props) => {
                       onPress={() => setReviewsVisible(true)}
                 />
             </View>
+            <View>
+                { reviews.length === 0 &&
+                    <Text>
+                        No reviews yet. Leave a review!
+                    </Text>
+                }
+            </View>
             <FlatList
                 removeClippedSubviews
-                data={props.reviewers}
-                renderItem={renderReviewers}
+                data={reviews}
+                renderItem={renderReviews}
             />
             <AddReviewOverlay
                 visible={reviewsVisible}
                 handleOpen={() => setReviewsVisible(true)}
-                handleClose={() => setReviewsVisible(false)}
+                handleClose={handleClose}
                 doctor={props.doctor}
             />
         </ScrollView>
