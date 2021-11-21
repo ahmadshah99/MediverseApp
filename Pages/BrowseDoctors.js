@@ -4,6 +4,7 @@ import {StyleSheet, Text, View, Image, TouchableHighlight, FlatList} from 'react
 import DoctorCard from "../components/DoctorCard";
 import {getDoctorsBySearch} from "../api/Doctor";
 import Header from "../components/Header";
+import Menu from "../components/Menu";
 
 const BrowseDoctors = ({ navigation }) => {
     // list of doctors to render
@@ -38,6 +39,7 @@ const BrowseDoctors = ({ navigation }) => {
                 data={doctors}
                 renderItem={renderCards}
             />
+            <Menu navigation={navigation} />
         </View>
     );
 };

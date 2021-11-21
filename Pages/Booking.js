@@ -5,6 +5,7 @@ import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import Header from "../components/Header";
 import { FontAwesome } from '@expo/vector-icons';
 import userItem from '../components/MockUserInfo';
+import Menu from '../components/Menu';
 
 const Booking = ({ navigation, route }) => {
     const [currentTab, setCurrentTab] = useState(0); 
@@ -65,7 +66,8 @@ const Booking = ({ navigation, route }) => {
 
 
     return (
-        <ScrollView style={styles.mainView}>
+        <View>
+  <ScrollView style={styles.mainView}>
             <Header navigation={navigation} />
             {currentTab === 0 &&
             <View>
@@ -175,7 +177,11 @@ const Booking = ({ navigation, route }) => {
             }
 
 
+
         </ScrollView>
+            <Menu navigation={navigation} />
+        </View>
+      
     )
 };
 
@@ -184,6 +190,8 @@ export default Booking;
 const styles = StyleSheet.create({
     mainView: {
         padding: 10,
+        marginBottom: 40,
+        height: 680
     },
     item: {
         borderColor: "#035762",

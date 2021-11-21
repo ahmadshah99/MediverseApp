@@ -6,6 +6,7 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from "../components/Header";
+import Menu from "../components/Menu";
 import Booking from "./Booking";
 
 const DoctorProfile = ({navigation, route}) => {
@@ -106,6 +107,7 @@ const DoctorProfile = ({navigation, route}) => {
                     />
                 </ScrollView>
             </ScrollView>
+            <Menu navigation={navigation} />
         </ScrollView>
     )
 }
