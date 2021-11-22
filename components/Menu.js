@@ -4,23 +4,28 @@ import { Icon } from 'react-native-elements';
 
 
 const Menu = ({ navigation }) => {
-    const MagnifyingGlassIcon = <Icon name='search' type='font-awesome' size={30} color='#000000' />;
     const UserIcon = <Icon name='user-o' type='font-awesome' size={30} color='#000000' />;
     const BellIcon = <Icon name='bell-o' type='font-awesome' size={30} color='#000000' />;
-    const PhoneIcon = <Icon name='phone-plus-outline' type='material-community' size={30} color='#FF0000' />;
     const MedkitIcon = <Icon name='medkit' type='font-awesome' size={30} color='#000000' />;
-
+    const HeartIcon = <Icon name='heart-o' type='font-awesome' size={30} color='#000000' />;
+    const StethoscopeIcon = <Icon name='stethoscope' type='font-awesome' size={30} color='#000000' />;
+    const HomeIcon = <Icon name='home' type='font-awesome' size={30} color='#000000' />;
 
     return (
         <View style={styles.footer}>
             <TouchableHighlight onPress={() => navigation.navigate('Search Doctors')}>
                 <View>
-                    {MagnifyingGlassIcon}
+                    {StethoscopeIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
+            <TouchableHighlight onPress={() => navigation.navigate('Medicine Translator')}>
                 <View>
-                    {UserIcon}
+                    {MedkitIcon}
+                </View>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={() => navigation.navigate('Home')}>
+                <View>
+                    {HomeIcon}
                 </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('')}>
@@ -28,14 +33,9 @@ const Menu = ({ navigation }) => {
                     {BellIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Emergency Call')}>
+            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
                 <View>
-                    {PhoneIcon}
-                </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Medicine Translator')}>
-                <View>
-                    {MedkitIcon}
+                    {UserIcon}
                 </View>
             </TouchableHighlight>
         </View>
