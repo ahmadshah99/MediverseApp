@@ -101,7 +101,7 @@ const MedicineTranslator = ({ navigation }) => {
             />
 
         </ScrollView>
-        <Menu navigation={navigation} /> 
+        <Menu navigation={navigation} />
         </View>
 
     )
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
     searchBar: {
         marginBottom: 30,
         marginTop: 15,
-        backgroundColor: '#fff' 
+        backgroundColor: '#fff'
     },
     dropdown1BtnStyle: {
         width: "80%",
@@ -130,10 +130,6 @@ const styles = StyleSheet.create({
       },
       dropdown1BtnTxtStyle: { color: "#444", textAlign: "left" },
       dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
-      dropdown1RowStyle: {
-        backgroundColor: "#EFEFEF",
-        borderBottomColor: "#C5C5C5",
-      },
       dropdown1RowStyle: {
         backgroundColor: "#EFEFEF",
         borderBottomColor: "#C5C5C5",
