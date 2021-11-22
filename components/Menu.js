@@ -33,7 +33,7 @@ const Menu = ({ navigation }) => {
                     {BellIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
+            <TouchableHighlight onPress={() => navigation.navigate('Landing2')}>
                 <View>
                     {UserIcon}
                 </View>
