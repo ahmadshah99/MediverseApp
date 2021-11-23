@@ -1,16 +1,18 @@
 import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
+import { storeData, getData } from '../utils/auth.js';
+import Landing from './Landing';
 
-const API_URL = Platform.OS === 'ios' ? 'http://localhost:5001' : 'http://10.0.2.2:5001';
-
-const AuthScreen = () => {
+//const API_URL = Platform.OS === 'ios' ? 'http://localhost:5001' : 'http://10.0.2.2:5001';
+const API_URL = 'http://localhost:5001';
+const AuthScreen = ({ navigation }) => {
 
     const [email, setEmail] = useState('');
-    const [name, setName] = useState('');
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
     const [password, setPassword] = useState('');
     const [countryofresidence, setCountry] = useState('');
     const [nativelang, setLang1] = useState('');
-    const [secondlang, setLang2] = useState('');
 
 
     const [isError, setIsError] = useState(false);
@@ -22,39 +24,19 @@ const AuthScreen = () => {
         setMessage('');
     };
 
-    const onLoggedIn = token => {
-        fetch(`${API_URL}/private`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        })
-            .then(async res => {
-                try {
-                    const jsonRes = await res.json();
-                    if (res.status === 200) {
-                        setMessage(jsonRes.message);
-                    }
-                } catch (err) {
-                    console.log(err);
-                };
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-
     const onSubmitHandler = () => {
+        console.log("Submitted Request")
         const payload = {
+            firstName,
+            lastName,
             email,
-            name,
-            password,
-            countryofresidence,
-            nativelang,
-            secondlang,
+            languages: [nativelang],
+            medicalConditions: [],
+            country: countryofresidence,
+            password
         };
-        fetch(`${API_URL}/${isLogin ? 'login' : 'signup'}`, {
+        console.log("Payload:\n" + JSON.stringify(payload));
+        fetch(`${API_URL}/auth/${isLogin ? 'userLogin' : 'userSignup'}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -64,13 +46,17 @@ const AuthScreen = () => {
             .then(async res => {
                 try {
                     const jsonRes = await res.json();
-                    if (res.status !== 200) {
-                        setIsError(true);
-                        setMessage(jsonRes.message);
-                    } else {
-                        onLoggedIn(jsonRes.token);
+                    console.log("Response: \n" + JSON.stringify(jsonRes));
+                    if (res.status === 200) {
+                        await storeData("jwt", jsonRes.token);
+                        console.log("Retrieved Token: \n" + (await getData("jwt")));
+                        //navigation.navigate(Landing);
                         setIsError(false);
-                        setMessage(jsonRes.message);
+                        setMessage("Session token has been stored"); 
+                    } else {
+                        //onLoggedIn(jsonRes.token);
+                        setIsError(true);
+                        setMessage(jsonRes.message);          
                     }
                 } catch (err) {
                     console.log(err);
@@ -93,13 +79,13 @@ const AuthScreen = () => {
                 <View style={styles.form}>
                     <View style={styles.inputs}>
                         <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail}></TextInput>
-                        {!isLogin && <TextInput style={styles.input} placeholder="Name" onChangeText={setName}></TextInput>}
+                        {!isLogin && <TextInput style={styles.input} placeholder="First Name" onChangeText={setFirstName}></TextInput>}
+                        {!isLogin && <TextInput style={styles.input} placeholder="Last Name" onChangeText={setLastName}></TextInput>}
                         {!isLogin && <TextInput style={styles.input} placeholder="Country of Residence" onChangeText={setCountry}></TextInput>}
                         {!isLogin && <TextInput style={styles.input} placeholder="Native Language" onChangeText={setLang1}></TextInput>}
-                        {!isLogin && <TextInput style={styles.input} placeholder="Second Language" onChangeText={setLang2}></TextInput>}
                         <TextInput secureTextEntry={true} style={styles.input} placeholder="Password" onChangeText={setPassword}></TextInput>
                         <Text style={[styles.message, { color: isError ? 'red' : 'green' }]}>{message ? getMessage() : null}</Text>
-                        <TouchableOpacity style={styles.button} onPress={onSubmitHandler}>
+                        <TouchableOpacity style={styles.button} onPress={() => {onSubmitHandler(navigation)}}>
                             <Text style={styles.buttonText}>TO THE MEDIVERSE!</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
