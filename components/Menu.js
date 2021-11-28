@@ -10,7 +10,7 @@ const Menu = ({ navigation }) => {
     const HeartIcon = <Icon name='heart-o' type='font-awesome' size={30} color='#000000' />;
     const StethoscopeIcon = <Icon name='stethoscope' type='font-awesome' size={30} color='#000000' />;
     const HomeIcon = <Icon name='home' type='font-awesome' size={30} color='#000000' />;
-
+    
     return (
         <View style={styles.footer}>
             <TouchableHighlight onPress={() => navigation.navigate('Search Doctors')}>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { ImageBackground, View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
 import { storeData, getData } from '../utils/auth.js';
-import Landing from './Landing';
 
 //const API_URL = Platform.OS === 'ios' ? 'http://localhost:5001' : 'http://10.0.2.2:5001';
 const API_URL = 'http://localhost:5001';
@@ -35,7 +34,6 @@ const AuthScreen = ({ navigation }) => {
             country: countryofresidence,
             password
         };
-        console.log("Payload:\n" + JSON.stringify(payload));
         fetch(`${API_URL}/auth/${isLogin ? 'userLogin' : 'userSignup'}`, {
             method: 'POST',
             headers: {
@@ -46,15 +44,14 @@ const AuthScreen = ({ navigation }) => {
             .then(async res => {
                 try {
                     const jsonRes = await res.json();
-                    console.log("Response: \n" + JSON.stringify(jsonRes));
                     if (res.status === 200) {
                         await storeData("jwt", jsonRes.token);
+                        await storeData("user", jsonRes.user);
                         console.log("Retrieved Token: \n" + (await getData("jwt")));
-                        //navigation.navigate(Landing);
                         setIsError(false);
                         setMessage("Session token has been stored"); 
+                        navigation.navigate('Home');
                     } else {
-                        //onLoggedIn(jsonRes.token);
                         setIsError(true);
                         setMessage(jsonRes.message);          
                     }
