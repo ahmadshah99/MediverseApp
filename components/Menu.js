@@ -23,15 +23,11 @@ const Menu = ({ navigation }) => {
                     {MedkitIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Home')}>
+            <TouchableHighlight onPress={() => navigation.navigate('Saved Doctors')}>
                 <View>
-                    {HomeIcon}
+                    {HeartIcon}
                 </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('')}>
-                <View>
-                    {BellIcon}
-                </View>
+        
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('Landing2')}>
                 <View>
@@ -58,7 +54,7 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        width: 385,
+        width: '100%',
         padding: 10,
     },
 
