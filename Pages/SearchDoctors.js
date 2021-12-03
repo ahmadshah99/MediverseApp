@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View } from 'react-native';
 import { Text, Switch, SearchBar, Button } from 'react-native-elements';
 import Menu from '../components/Menu';
 
 const SearchDoctors = ({ navigation }) => {
+    const [doctorType, setDoctorType] = useState('')
+
     return (
         <View style={styles.mainView}>
             <Text h1 style={styles.titleText}>Find a Doctor</Text>
@@ -16,6 +18,8 @@ const SearchDoctors = ({ navigation }) => {
                     placeholder="Doctor type..."
                     containerStyle={styles.searchBar}
                     inputContainerStyle={{backgroundColor: '#fff'}}
+                    onChangeText={setDoctorType}
+                    value={doctorType}
                     lightTheme
                     round
                 />
