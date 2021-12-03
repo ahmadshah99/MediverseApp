@@ -13,6 +13,7 @@ import TranslationResults from './Pages/TranslationResults';
 import Booking from './Pages/Booking';
 import Landing2 from './Pages/Landing2';
 import AuthScreen from './Pages/AuthScreen';
+import SavedDoctors from './Pages/SavedDoctors';
 
 
 
@@ -41,6 +42,10 @@ export default function App() {
                 <Stack.Screen
                     name="Doctor Profile"
                     component={DoctorProfile}
+                />
+                <Stack.Screen
+                    name="Saved Doctors"
+                    component={SavedDoctors}
                 />
                 <Stack.Screen
                     name="User Profile"
