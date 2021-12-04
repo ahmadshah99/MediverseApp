@@ -4,7 +4,6 @@ import { Text, Card, Icon, Button } from 'react-native-elements';
 import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
 import Header from "../components/Header";
 import { FontAwesome } from '@expo/vector-icons';
-import userItem from '../components/MockUserInfo';
 import Menu from '../components/Menu';
 
 const Booking = ({ navigation, route }) => {
@@ -169,7 +168,7 @@ const Booking = ({ navigation, route }) => {
 
             {currentTab === 3 &&
                 <View style = {{ alignItems: "center" }}>
-                    <Text style = {{ fontSize: 20, textAlign: "center" }}>Hi {userItem.name}, you're all booked for your appointment!</Text>
+                    <Text style = {{ fontSize: 20, textAlign: "center" }}>Hi Terry, you're all booked for your appointment!</Text>
                     <TouchableHighlight onPress={() => navigation.navigate('User Profile')} style={{ backgroundColor: "#035762", padding: 15, color: "#53D8C7", borderRadius: 20, marginVertical: 20, justifyContent: "center", alignItems: "center", width: 200  }}>
                         <Text style = {{ color: "#53D8C7", fontSize: 17 }}>SEE NOTIFICATIONS</Text>
                     </TouchableHighlight>

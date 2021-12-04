@@ -5,7 +5,7 @@ import Landing from './Landing';
 
 //const API_URL = Platform.OS === 'ios' ? 'http://localhost:5001' : 'http://10.0.2.2:5001';
 const API_URL = 'http://localhost:5001';
-const AuthScreen = ({ navigation }) => {
+const AuthScreen = ({ navigation, route }) => {
 
     const [email, setEmail] = useState('');
     const [firstName, setFirstName] = useState('');
@@ -17,7 +17,7 @@ const AuthScreen = ({ navigation }) => {
 
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
-    const [isLogin, setIsLogin] = useState(true);
+    const [isLogin, setIsLogin] = useState(route.params.isLogin);
 
     const onChangeHandler = () => {
         setIsLogin(!isLogin);
@@ -52,7 +52,8 @@ const AuthScreen = ({ navigation }) => {
                         console.log("Retrieved Token: \n" + (await getData("jwt")));
                         //navigation.navigate(Landing);
                         setIsError(false);
-                        setMessage("Session token has been stored"); 
+                        setMessage("Session token has been stored");
+                        navigation.navigate("Home")
                     } else {
                         //onLoggedIn(jsonRes.token);
                         setIsError(true);
@@ -88,9 +89,15 @@ const AuthScreen = ({ navigation }) => {
                         <TouchableOpacity style={styles.button} onPress={() => {onSubmitHandler(navigation)}}>
                             <Text style={styles.buttonText}>TO THE MEDIVERSE!</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
-                            <Text style={styles.buttonAltText}>{isLogin ? 'Sign Up' : 'Log In'}</Text>
-                        </TouchableOpacity>
+                        {/* <TouchableOpacity style={styles.buttonAlt} onPress={onChangeHandler}>
+                            <Text style={styles.buttonAltText}>{isLogin ? 'Sign Up' : 'Login'}</Text>
+                        </TouchableOpacity> */}
+                        {
+                            isLogin ?
+                            <Text>New to Mediverse? <Text style={{color: '#035762'}} onPress={onChangeHandler}>Create an account</Text></Text>
+                            : <Text>Already use Mediverse? <Text style={{color: '#035762'}} onPress={onChangeHandler}>Sign in</Text></Text>
+                        }
+                        
                     </View>
                 </View>
             </View>

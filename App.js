@@ -28,8 +28,14 @@ export default function App() {
         <NavigationContainer>
             <Stack.Navigator>
                 <Stack.Screen
+                    name="Landing2"
+                    component={Landing2}
+                    options={{headerShown:false}}
+                />
+                <Stack.Screen
                     name="Home"
                     component={Landing}
+                    options={{headerShown:false}}
                 />
                 <Stack.Screen
                     name="Search Doctors"
@@ -63,13 +69,11 @@ export default function App() {
                     name="Booking"
                     component={Booking}
                 />
-                <Stack.Screen
-                    name="Landing2"
-                    component={Landing2}
-                />
+
                 <Stack.Screen
                     name="AuthScreen"
                     component={AuthScreen}
+                    options={{headerShown:false}}
                 />
             </Stack.Navigator>
         </NavigationContainer>

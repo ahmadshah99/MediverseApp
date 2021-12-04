@@ -29,7 +29,7 @@ const Menu = ({ navigation }) => {
                 </View>
         
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Landing2')}>
+            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
                 <View>
                     {UserIcon}
                 </View>
@@ -54,7 +54,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        width: 385,
+        // width: 385,
+        width: "100%",
         padding: 10,
     },
 

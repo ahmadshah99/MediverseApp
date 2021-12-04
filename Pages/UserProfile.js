@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
 import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 
@@ -6,13 +6,14 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from '../components/Header';
-import userItem from '../components/MockUserInfo';
 import Menu from '../components/Menu';
+import { storeData, getData } from '../utils/auth.js';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 //https://icons.expo.fyi/
 import { Entypo } from '@expo/vector-icons'; 
-
+const API_URL = 'http://localhost:5001';
 const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
     return (
         <View style = {styles.userProfileNavBar}>
@@ -26,22 +27,63 @@ const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
 {/*  */}
 
 const BasicUserInfo = () => {
+
+    const [fName, setFName] = useState("");
+    const [lName, setLName] = useState("");
+    const [country, setCountry] = useState("");
+
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+    
+
+    useEffect(async () => {
+        fetch(`${API_URL}/user/findOne`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+        }).then(async res => {
+            try{
+                const jsonRes = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                if (res.status === 200) {
+                    setIsError(false);
+                    setMessage("User profile data fetched successfully.");
+                    const firstName = JSON.parse(JSON.stringify(jsonRes)).firstName;
+                    const lastName = JSON.parse(JSON.stringify(jsonRes)).lastName;
+                    const homeCountry = JSON.parse(JSON.stringify(jsonRes)).country;
+                    setFName(firstName);
+                    setLName(lastName);
+                    setCountry(homeCountry);
+                } else {
+                    setIsError(true);
+                    setMessage(jsonRes.message);          
+                }
+            }catch(err){
+                console.log(err);
+            }
+        })
+    }, [])
+
     return (
         <View>
-            <Text h3 style={{ fontWeight: 'bold' }}>{ userItem.name }</Text>
+            <Text h3 style={{ fontWeight: 'bold' }}>{ fName } { lName }</Text>
             <View style={styles.userBasicInfo}>
-                <Avatar
+                {/* <Avatar
                     size={120}
                     rounded
                     containerStyle={{ marginLeft: 10, marginTop: 10}}
                     source={require('../assets/images/mock_profile_picture_user.png')}
                 />
+                 */}
+                 <MaterialCommunityIcons name="account-question" size={80} color="black" style={{ marginLeft: 10, marginRight: 20, marginTop: 10}} />
                 <View style={{ marginTop: 10 }}>
                     <Text h4 style={styles.statusText}>Away from home</Text>
                     <View style={styles.locationMarkers}>
                         <View>
                             <Icon name='map-marker' style={{ marginRight: 20 }} type='font-awesome' size={50} color='#53D8C7'/>
-                            <Text>New York, {"\n"} USA</Text>
+                            <Text>{ country }</Text>
                         </View>
                         <Icon name='plane' type='font-awesome' size={30} color='#53D8C7' />
                         <View>
@@ -107,7 +149,7 @@ const MedicalInfo = () => {
                     </View>
                 </View>
 
-                <Text h4 style={{ marginBottom: 5 }}>Bookings</Text>
+                {/* <Text h4 style={{ marginBottom: 5 }}>Bookings</Text>
                 <View>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Icon name="plus" type="font-awesome" size={25} />
@@ -118,7 +160,7 @@ const MedicalInfo = () => {
                         <Icon name="eye" type="font-awesome" size={25} />
                        <Text> VIEW DOCTOR BOOKING HISTORY</Text>
                     </View>
-                </View>
+                </View> */}
             </View>
         </View>
     )
