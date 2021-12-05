@@ -85,7 +85,7 @@ const MedicineTranslator = ({ navigation }) => {
 
             <TouchableHighlight>
                 <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style = {{ fontWeight: "bold" }}>Use home country's location? </Text>
+                    <Text style = {{ fontWeight: "bold" }}><Text style={{ color: "red" }}>* </Text>Use home country's location? </Text>
                     <FontAwesome5 onPress={() => handleTokenChange()}  name = {(toggleState === true) ? "toggle-on" : "toggle-off"} size={24} color="black" />
                 </View>
             </TouchableHighlight>
@@ -99,6 +99,8 @@ const MedicineTranslator = ({ navigation }) => {
                 round
             /> */}
 
+<View style={{ flexDirection: "row" }}>
+<Text style={{ fontWeight: 'bold', color: 'red', marginTop: 15, fontSize: 18 }}>* </Text>
 <SelectDropdown
 	data={countries}
 	onSelect={(selectedItem, index) => {
@@ -127,7 +129,7 @@ const MedicineTranslator = ({ navigation }) => {
       rowStyle={styles.dropdown1RowStyle}
       rowTextStyle={styles.dropdown1RowTxtStyle}
 />
-
+</View>
 
 
 
@@ -149,7 +151,7 @@ const MedicineTranslator = ({ navigation }) => {
                     <Text style = {{ color: "#53D8C7" }}> SUBMIT NEW {"\n"} MEDICATION</Text>
                     <DialogInput 
                         isDialogVisible={isNewMedDialog}
-                        title={"Submit new medicine for " + countrySearchValue}
+                        title={"Submit new medicine for " + homeCountry}
                         message={"We will use your suggestion to improve our app!"}
                         hintInput ={"Input Medicine"}
                         dialogStyle={{ justifyContent: 'space-between', backgroundColor: "#fff", paddingHorizontal: 10, paddingVertical: 100, borderRadius: 5, width: "90%", height: "50%", justifyContent: 'space-around' }}
@@ -160,8 +162,9 @@ const MedicineTranslator = ({ navigation }) => {
                 </View>
             </View>
 
-
-
+<Text style = {{ fontSize: 15, marginBottom: 10, fontWeight: 'bold'}}>Please enable location first before selecting a medicine.</Text>
+<View style = {{ flexDirection: 'row' }}>
+<Text style={{ fontWeight: 'bold', color: 'red', marginTop: 15, fontSize: 18 }}>* </Text>
 <SelectDropdown
 	data={medicinesRelatedToCountry}
 	onSelect={(selectedItem, index) => {
@@ -190,6 +193,7 @@ const MedicineTranslator = ({ navigation }) => {
       rowStyle={styles.dropdown1RowStyle}
       rowTextStyle={styles.dropdown1RowTxtStyle}
 />
+</View>
 
  
 
