@@ -11,6 +11,9 @@ import { storeData, getData, removeItemValue } from '../utils/auth.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 import Landing2 from './Landing2';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 //https://icons.expo.fyi/
@@ -33,6 +36,7 @@ const BasicUserInfo = ({ navigation }) => {
     const [fName, setFName] = useState("");
     const [lName, setLName] = useState("");
     const [country, setCountry] = useState("");
+    const [isPremium, setIsPremium] = useState(false);
 
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
@@ -41,6 +45,33 @@ const BasicUserInfo = ({ navigation }) => {
         console.log("Logging out");
         removeItemValue(getData("jwt"));
         navigation.navigate("Landing2");
+    }
+
+
+
+    async function hadnlePremiumIconPress(){
+        console.log("Changing premium status to " + !isPremium);
+        let newPremVal = !isPremium;
+        const payLoad = {
+            newPremiumStatus: newPremVal.toString()
+        };
+        fetch(`${API_URL}/user/changePremiumStatus`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${await getData("jwt")}`
+                },
+                body: JSON.stringify(payLoad)
+        }).then(async res => {
+            try{
+                const jsonResPremium = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonResPremium)); 
+            }catch(e){
+                console.log(e);
+            }
+        });
+        setIsPremium(!isPremium);
+
     }
     
 
@@ -61,9 +92,11 @@ const BasicUserInfo = ({ navigation }) => {
                     const firstName = JSON.parse(JSON.stringify(jsonRes)).firstName;
                     const lastName = JSON.parse(JSON.stringify(jsonRes)).lastName;
                     const homeCountry = JSON.parse(JSON.stringify(jsonRes)).country;
+                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
                     setFName(firstName);
                     setLName(lastName);
                     setCountry(homeCountry);
+                    setIsPremium(isPrem);
                 } else {
                     setIsError(true);
                     setMessage(jsonRes.message);          
@@ -71,20 +104,13 @@ const BasicUserInfo = ({ navigation }) => {
             }catch(err){
                 console.log(err);
             }
-        })
+        });
     }, [])
 
     return (
         <View>
             <Text h3 style={{ fontWeight: 'bold' }}>{ fName } { lName }</Text>
             <View style={styles.userBasicInfo}>
-                {/* <Avatar
-                    size={120}
-                    rounded
-                    containerStyle={{ marginLeft: 10, marginTop: 10}}
-                    source={require('../assets/images/mock_profile_picture_user.png')}
-                />
-                 */}
                  <MaterialCommunityIcons name="account-question" size={80} color="black" style={{ marginLeft: 10, marginRight: 20, marginTop: 10}} />
                 <View style={{ marginTop: 10 }}>
                     <Text h4 style={styles.statusText}>Away from home</Text>
@@ -115,8 +141,14 @@ const BasicUserInfo = ({ navigation }) => {
                     <Icon name="chevron-down" type='font-awesome' size={20} color="#53D8C7" />
                 </View>
 
+                <View style={{ flexDirection: 'row', marginVertical: 20 }}>
+                    <Text style={{ color: "#0a94a6", fontSize: 18, fontWeight: 'bold' }}>Premium? </Text>
+                    <FontAwesome5 onPress={() => hadnlePremiumIconPress()}  name = {(isPremium) ? "toggle-on" : "toggle-off"} size={24} color="black" />
 
-                    <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                </View>
+
+
+                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 20 }}>
                         <MaterialIcons onPress={()=> handleLogout()} style={{ color: "#0a94a6", marginRight: 10, marginTop: 20 }} name="logout" size={20} color="black" />
                         <Text style={{ color: "#0a94a6", fontSize: 18, marginTop: 20 }}>Sign Out</Text>
                     </View>
@@ -163,18 +195,6 @@ const MedicalInfo = () => {
                     </View>
                 </View>
 
-                {/* <Text h4 style={{ marginBottom: 5 }}>Bookings</Text>
-                <View>
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Icon name="plus" type="font-awesome" size={25} />
-                        <Text> BOOK WITH A DOCTOR</Text>
-                    </View>
-
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Icon name="eye" type="font-awesome" size={25} />
-                       <Text> VIEW DOCTOR BOOKING HISTORY</Text>
-                    </View>
-                </View> */}
             </View>
         </View>
     )

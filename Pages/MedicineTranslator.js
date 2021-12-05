@@ -86,7 +86,7 @@ const MedicineTranslator = ({ navigation }) => {
             <TouchableHighlight>
                 <View style = {{ flexDirection: "row", alignItems: "center" }}>
                     <Text style = {{ fontWeight: "bold" }}><Text style={{ color: "red" }}>* </Text>Use home country's location? </Text>
-                    <FontAwesome5 onPress={() => handleTokenChange()}  name = {(toggleState === true) ? "toggle-on" : "toggle-off"} size={24} color="black" />
+                    <FontAwesome5 onPress={() => handleTokenChange()}  name = {(toggleState) ? "toggle-on" : "toggle-off"} size={24} color="black" />
                 </View>
             </TouchableHighlight>
             {/* <SearchBar

@@ -42,7 +42,9 @@ returns doctors matching search criteria
 @body{String} sortBy
  */
 export const getDoctorsBySearch = async (data) => {
-    return RequestClient.post('doctor/findBySearch', data)
+    return RequestClient.post('doctor/findBySearch', data,  {
+        headers: {'Authorization': `bearer ${await getData("jwt")}`}
+    })
 }
 
 
