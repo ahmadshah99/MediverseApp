@@ -7,8 +7,10 @@ import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from '../components/Header';
 import Menu from '../components/Menu';
-import { storeData, getData } from '../utils/auth.js';
+import { storeData, getData, removeItemValue } from '../utils/auth.js';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import Landing2 from './Landing2';
 
 
 //https://icons.expo.fyi/
@@ -26,7 +28,7 @@ const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
 
 {/*  */}
 
-const BasicUserInfo = () => {
+const BasicUserInfo = ({ navigation }) => {
 
     const [fName, setFName] = useState("");
     const [lName, setLName] = useState("");
@@ -34,6 +36,12 @@ const BasicUserInfo = () => {
 
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
+
+    function handleLogout(){
+        console.log("Logging out");
+        removeItemValue(getData("jwt"));
+        navigation.navigate("Landing2");
+    }
     
 
     useEffect(async () => {
@@ -106,6 +114,12 @@ const BasicUserInfo = () => {
                     <Text style = {{ color: '#53D8C7', fontSize: 20, marginTop: 10 }}>Covid Vaccine Info</Text>
                     <Icon name="chevron-down" type='font-awesome' size={20} color="#53D8C7" />
                 </View>
+
+
+                    <View style={{ flexDirection: 'row', alignItems: "center" }}>
+                        <MaterialIcons onPress={()=> handleLogout()} style={{ color: "#0a94a6", marginRight: 10, marginTop: 20 }} name="logout" size={20} color="black" />
+                        <Text style={{ color: "#0a94a6", fontSize: 18, marginTop: 20 }}>Sign Out</Text>
+                    </View>
             </View>
         </View>
     )
@@ -206,7 +220,7 @@ const UserProfile = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.mainView}>
                 <Header navigation={navigation} />
                 <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
-                {(currentTab === 0) && <BasicUserInfo />}
+                {(currentTab === 0) && <BasicUserInfo navigation={navigation} />}
                 {(currentTab === 1) && <MedicalInfo />}
                 {(currentTab === 2) && <PrescriptionsInfo />}
             </ScrollView>

@@ -41,7 +41,7 @@ const TranslationResults = ({ navigation, route }) => {
         <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
             <Text style = {{ marginTop: 10, color: "#035762" }}>Please consult a pharmacist or doctor {"\n"}if you intend to use any medication.</Text>
-            <SearchBar
+            {/* <SearchBar
                 placeholder="New Medicine Search"
                 containerStyle={styles.searchBar}
                 inputContainerStyle={{backgroundColor: '#fff'}}
@@ -55,7 +55,7 @@ const TranslationResults = ({ navigation, route }) => {
                 title="Translate My Medicine"
                 buttonStyle={{ backgroundColor: "#035762", padding: 15, marginBottom: 25 }}
                 onPress={() => navigation.navigate('Translation Results', {navigation: navigation, medicineName: medicineSearchValue, countryName: route.params.countryName}) }
-            />
+            /> */}
 
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 5 }}>
