@@ -157,7 +157,7 @@ const BasicUserInfo = ({ navigation }) => {
 const MedicalInfo = () => {
     return (
         <View>
-            <Text h1>Meidcal</Text>
+            <Text h1>Medical</Text>
             <Text h5><Text style={{ fontWeight: "bold" }}>Current Insurance:</Text> Cigna</Text>
             <Text h5 style = {{ marginBottom: 20 }}><Text style={{ fontWeight: "bold" }}>Bloodtype:</Text> A++</Text>
             <View style = {{ flexDirection: "row", marginBottom: 15 }}>
