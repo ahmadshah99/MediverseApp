@@ -334,7 +334,7 @@ const SearchDoctors = ({ navigation }) => {
                     <Switch value={walkin} onValueChange={() => setWalkin(walkin => !walkin)} color="#035762" />
                 </View>
                 <View style={styles.searchContainer}>
-                    <GooglePlacesAutocomplete
+                    {/* <GooglePlacesAutocomplete
                         ref={ref}
                         placeholder='Where do you want to search?'
                         minLength={2}
@@ -367,9 +367,20 @@ const SearchDoctors = ({ navigation }) => {
                                 top: 55
                             }
                         }}
+                    /> */}
+                    <SearchBar
+                        placeholder="Where do you want to search?"
+                        containerStyle={styles.searchBar}
+                        inputContainerStyle={{backgroundColor: '#fff'}}
+                        onChangeText={val => setLocation(val)}
+                        value={location}
+                        lightTheme
+                        round
                     />
-
                 </View>
+
+
+
                 {
                     !isPremium && 
                     <View style={{flexDirection: 'row', marginVertical: 10}}>
