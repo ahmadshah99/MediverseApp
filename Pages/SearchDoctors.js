@@ -183,7 +183,8 @@ const SearchDoctors = ({ navigation }) => {
                             listView: {
                                 position: 'absolute',
                                 height: deviceHeight,
-                                width: deviceWidth
+                                width: deviceWidth,
+                                top: 55
                             }
                         }}
                     />
