@@ -164,7 +164,7 @@ const MedicineTranslator = ({ navigation }) => {
 
 
 
-            <View style = {{ flexDirection: "row", alignItems: "center" }}>
+            {/* <View style = {{ flexDirection: "row", alignItems: "center" }}>
                 <View style = {{ flexDirection: "row", alignItems: 'center', marginRight: 10, marginTop: -20, backgroundColor: "#035762", paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
                     <FontAwesome5 name="camera" size={24} color="#53D8C7" />
                     <Text style = {{ color: "#53D8C7" }}> IMAGE {"\n"} SEARCH</Text>
@@ -191,7 +191,7 @@ const MedicineTranslator = ({ navigation }) => {
                         closeDialog={() => setIsNewMedDialog(false)}>
                     </DialogInput>
                 </View>
-            </View>
+            </View> */}
 
 <Text style = {{ fontSize: 15, marginBottom: 10, fontWeight: 'bold'}}>Please enable location first before selecting a medicine.</Text>
 <View style = {{ flexDirection: 'row' }}>
