@@ -7,6 +7,7 @@ import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete"
 import Constants from 'expo-constants';
 import { storeData, getData } from '../utils/auth.js';
 import { AntDesign } from '@expo/vector-icons';
+import {getDoctorById} from "../api/Doctor";
 
 
 const SearchDoctors = ({ navigation }) => {

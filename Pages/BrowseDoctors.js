@@ -17,13 +17,13 @@ const BrowseDoctors = ({ route, navigation }) => {
     const [formattedLocation, setFormattedLocation] = useState(route.params.location)
     const [filterBy, setFilterBy] = useState(0) //0 - nothing, 1 - rating, 2 - distance
 
-    
+
     const API_URL = 'http://localhost:5001';
     const [isPremium, setIsPremium] = useState(false);
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
 
-    const renderCards = ({item }) => {
+    const renderCards = ({ item }) => {
         return (
             <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
                 <DoctorCard key={item._id} doctor={item} />
@@ -57,7 +57,7 @@ const BrowseDoctors = ({ route, navigation }) => {
         }).then(async res => {
             try{
                 const jsonRes = await res.json();
-                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                console.log("Response: \n" + JSON.stringify(jsonRes));
                 if (res.status === 200) {
                     setIsError(false);
                     setMessage("User profile data fetched successfully.");
@@ -72,7 +72,7 @@ const BrowseDoctors = ({ route, navigation }) => {
                     }
                 } else {
                     setIsError(true);
-                    setMessage(jsonRes.message);          
+                    setMessage(jsonRes.message);
                 }
             }catch(err){
                 console.log(err);
