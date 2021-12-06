@@ -8,6 +8,10 @@ import Menu from '../components/Menu';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import translationList from '../components/TranslationList';
+import {Switch } from 'react-native-elements';
+import { Linking } from "react-native";
+
+
 
 const MedicineTranslator = ({ navigation }) => {
 
@@ -21,10 +25,9 @@ const MedicineTranslator = ({ navigation }) => {
     const supportedMedications = JSON.stringify(translationList);
 
     return (
-        <View>
-            <ScrollView contentContainerStyle={styles.mainView}>
-            <Header navigation={navigation} />
-            <Text h3 style = {{ marginTop: 10, color: "#035762" }}>Translate My Medicine</Text>
+        <View style={styles.mainView}>
+            <Text h1 style={styles.titleText}>Translate My Medicine</Text>
+            <View style={{ width: '100%' }}>
             <SearchBar
                 placeholder="Medication name"
                 containerStyle={styles.searchBar}
@@ -35,26 +38,21 @@ const MedicineTranslator = ({ navigation }) => {
                 round
             />
 
-            <Text style = {{ fontSize: 14, marginBottom: 10, marginTop: -20, color: "blue", textDecorationLine: "underline" }} a onPress = {() => alert(supportedMedications)}>Click here to see supported medicines</Text>
+            <Text style = {{ fontSize: 12, marginBottom: 10, marginTop: -20, color: "blue", textDecorationLine: "underline", textAlign: "right"}} a onPress = {() => alert(supportedMedications)}>view supported medicines</Text>
 
             <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                <View style = {{ flexDirection: "row", alignItems: 'center', marginRight: 10, marginTop: -20, backgroundColor: "#035762", paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
-                    <FontAwesome5 name="camera" size={24} color="#53D8C7" />
-                    <Text style = {{ color: "#53D8C7" }}> IMAGE {"\n"} SEARCH</Text>
+                <View style = {{ flexDirection: "row", alignItems: 'center', marginRight: 10, marginTop: -20, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
+                    {/* <FontAwesome5 name="camera" size={16} color="#53D8C7" /> */}
+                    {/* <Text style = {{ color: "#53D8C7" }}> IMAGE {"\n"} SEARCH</Text> */}
                 </View>
-
-                <View style = {{ flexDirection: "row", alignItems: 'center', marginBottom: 20, backgroundColor: "#035762", paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
-                    <AntDesign name="upload" size={24} color="#53D8C7" />
-                    <Text style = {{ color: "#53D8C7" }}> SUBMIT NEW {"\n"} MEDICATION</Text>
-                </View>
+    
             </View>
 
-            <TouchableHighlight>
-                <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                    <Text style = {{ fontWeight: "bold" }}>Use my location? </Text>
-                    <FontAwesome5 onPress={() => setToggleState(!toggleState)}  name = {(toggleState === true) ? "toggle-on" : "toggle-off"} size={24} color="black" />
-                </View>
-            </TouchableHighlight>
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10}}>Use my location?</Text>
+                <Switch value={true} color="#035762" />
+            </View>
+
             {/* <SearchBar
                 placeholder="Country"
                 containerStyle={styles.searchBar}
@@ -92,15 +90,27 @@ const MedicineTranslator = ({ navigation }) => {
       dropdownStyle={styles.dropdown1DropdownStyle}
       rowStyle={styles.dropdown1RowStyle}
       rowTextStyle={styles.dropdown1RowTxtStyle}
-/>
+    />
+    </View>
+
+
 
             <Button
-                title="Translate My Medicine"
-                buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
+             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
+                title="Go!"
+                titleStyle={{color: "#53D8C7", padding: 10}}
+                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
                 onPress={() => navigation.navigate('Translation Results', {navigation: navigation, medicineName: medicineSearchValue, countryName: countrySearchValue}) }
             />
+            <Button
+                        icon={ <FontAwesome5 name="map" size={16} color="#53D8C7"/>}
+                        title="Derb Sidi Messaoud 40, Marrakesh, Morocco"
+                        titleStyle={{color: "#53D8C7", padding: 10}}
+                        buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
+                        onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=Derb Sidi Messaoud 40, Marrakesh, Morocco')}
+                    />
+    
 
-        </ScrollView>
         <Menu navigation={navigation} />
         </View>
 
@@ -110,24 +120,35 @@ const MedicineTranslator = ({ navigation }) => {
 export default MedicineTranslator;
 
 const styles = StyleSheet.create({
-    mainView : {
-        padding: 20,
-        marginBottom: 250
+    mainView: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 10
     },
     searchBar: {
+        width: "100%",
         marginBottom: 30,
         marginTop: 15,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50},
+
+    titleText: {
+        color: '#035762',
+        fontWeight: 'bold',
+        marginTop: 15,
+        marginBottom: '5%'
     },
     dropdown1BtnStyle: {
-        width: "80%",
+        width: "100%",
         height: 50,
         backgroundColor: "#FFF",
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#444",
-        marginBottom: 10
-      },
+        marginBottom: 10,
+        marginTop: 15,
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50}
+      ,
       dropdown1BtnTxtStyle: { color: "#444", textAlign: "left" },
       dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
       dropdown1RowStyle: {

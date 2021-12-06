@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        width: 385,
+        width: '100%',
         padding: 10,
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
     },
 
 });

@@ -20,16 +20,18 @@ const Landing2 = ({ navigation }) => {
             </View>
             <View style={styles.titleText}>
                 <Text h4 style={styles.titleText}>Go Global with the Travel Companion you need!</Text>
-                <Text h4 style={styles.titleText}>Put your health first.</Text>
+                <Text h4 style={styles.titleText2}>Put your health first.</Text>
             </View>
             <Button
                 title="Login"
+                titleStyle={{color: "#53D8C7", padding: 10}}
                 buttonStyle={styles.goButton}
                 color="#53D8C7"
                 onPress={() => navigation.navigate(AuthScreen)} />
             <View style={styles.space} />
             <Button
                 title="Sign Up"
+                titleStyle={{color: "#53D8C7", padding: 10}}
                 buttonStyle={styles.goButton}
                 color="#53D8C7"
                 onPress={() => navigation.navigate(AuthScreen)}
@@ -76,13 +78,22 @@ const styles = StyleSheet.create({
         marginBottom: 15,
         textAlign: 'center',
     },
+    titleText2: {
+        color: '#53D8C7',
+        fontWeight: 'bold',
+        marginTop: 15,
+        marginBottom: 15,
+        textAlign: 'center',
+    },
     buttonView: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center'
     },
     goButton: {
-        backgroundColor: '#035762'
+        backgroundColor: '#035762',
+        borderRadius: 100,
+
     },
     space: {
         width: 20,

@@ -2,14 +2,16 @@ import React from 'react';
 import {StyleSheet, View } from 'react-native';
 import { Text, Switch, SearchBar, Button } from 'react-native-elements';
 import Menu from '../components/Menu';
+import { FontAwesome5 } from '@expo/vector-icons';
+
 
 const SearchDoctors = ({ navigation }) => {
     return (
         <View style={styles.mainView}>
             <Text h1 style={styles.titleText}>Find a Doctor</Text>
             <View style={{ width: '100%' }}>
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Show virtual doctors?</Text>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                    <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10 }}>Show virtual doctors?</Text>
                     <Switch value={true} color="#035762" />
                 </View>
                 <SearchBar
@@ -18,9 +20,9 @@ const SearchDoctors = ({ navigation }) => {
                     inputContainerStyle={{backgroundColor: '#fff'}}
                     lightTheme
                     round
-                />
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-                    <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Use my location?</Text>
+                /> 
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                    <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10 }}>Use my location?</Text>
                     <Switch value={true} color="#035762" />
                 </View>
                 <SearchBar
@@ -31,9 +33,12 @@ const SearchDoctors = ({ navigation }) => {
                     round
                 />
             </View>
+        
             <Button
-                title="Search Doctors"
-                buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
+             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
+                title="Go!"
+                titleStyle={{color: "#53D8C7", padding: 10}}
+                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
                 onPress={() => navigation.push('Browse Doctors') }
             />
             <Menu navigation={navigation} />
@@ -53,11 +58,12 @@ const styles = StyleSheet.create({
         color: '#035762',
         fontWeight: 'bold',
         marginTop: 15,
-        marginBottom: '20%'
+        marginBottom: '5%'
     },
     searchBar: {
         marginBottom: 30,
         marginTop: 15,
-        backgroundColor: '#fff'
-    }
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50}
 });
