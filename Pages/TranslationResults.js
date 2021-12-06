@@ -58,9 +58,9 @@ const TranslationResults = ({ navigation, route }) => {
             /> */}
 
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 5 }}>
+                <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 50 }}>
                     <Text h4>Input Medicine Name</Text>
-                    <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{targetMedicine}</Text>
+                    <Text style = {{ color: "#CAC7C7", fontSize: 20, textDecorationLine: "underline" }}>{targetMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose : "Not Found"}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient : "Not Found"}</Text>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
@@ -70,13 +70,13 @@ const TranslationResults = ({ navigation, route }) => {
                     {/* <Image source={TylenolImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
                 </View>
 
-                <AntDesign name="arrowright" size={50} color="#53D8C7" />
+                <AntDesign name="arrowdown" size={50} color="#53D8C7" />
 
 
             </View>
 
             {equivMedicine !== '' ?
-            <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 5 }}>
+            <View style = {{ borderColor: "#CAC7C7", borderWidth: 2, padding: 5, borderRadius: 50 }}>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Text h4>Known Equivalents </Text>
                         <View style = {{ marginTop: 15 }}>
