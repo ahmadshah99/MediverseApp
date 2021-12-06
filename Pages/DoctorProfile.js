@@ -52,12 +52,20 @@ const DoctorProfile = ({navigation, route}) => {
         }
     ]
 
-    function handleHeartPress(){
+    const handleHeartPress = async () => {
         if(isPremium){
-            alert("Doctor saved");
-            // axios.patch('')
-        }else{
-            alert("Please become a premium user to save a doctor for future refrence.");
+            axios.patch(`${API_URL}/user/addSavedDoctor`, {
+                id: route.params.item._id
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `bearer ${await getData("jwt")}`
+                }
+            }).then(res => {
+                alert("Doctor saved");
+            })
+        } else {
+            alert("Please become a premium user to save a doctor for future reference.");
         }
     }
 
@@ -103,20 +111,17 @@ const DoctorProfile = ({navigation, route}) => {
                     <Text h4>{ route.params.item.clinicName }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.streetAddress }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
-                    <Button
-                        icon={ <FontAwesome name="map" size={16} color="#53D8C7"/>}
-                        title={}
-                        titleStyle={{color: "#53D8C7", padding: 10}}
-                        buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
-                        onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + 'Derb Sidi Messaoud 40, Marrakesh, Morocco')}
+                    <Text
+                        style={{color: "#53D8C7", marginBottom: 1}}
+                        onPress={() => Linking.openURL(`https://www.google.com/maps/search/?api=1&query=${route.params.item.address.streetAddress}, ${route.params.item.address.country}`)}
                         // dymanic version
                         //  onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + route.params.item.address.streetAddress + route.params.item.address.city + route.params.item.address.country )}
-
-
-                    />
+                    >
+                        <Icon type="font-awesome" name="map" size={16} color="#53D8C7"/>
+                        {route.params.item.address.streetAddress}
+                    </Text>
                     <View style={styles.doctorActions}>
                         <Icon onPress={() => handleHeartPress()} name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
-                        <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
                     </View>
                 </View>
             </View>

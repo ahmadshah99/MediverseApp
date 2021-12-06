@@ -60,12 +60,17 @@ export const deleteUser = (id) => {
     add saved doctors
 
     @params{Id} id
-    @body{String} doctorId 
+    @body{String} doctorId
 
  */
-export const addSavedDoctor = (id, data) => {
-    return RequestClient.patch('user/addSavedDoctor', {
-        params: { id },
-        data
-    })
-}
+// export const addSavedDoctor = (id, data) => {
+//     return RequestClient.patch('user/addSavedDoctor', {
+//         params: { id },
+//         data
+//     }, {
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `bearer ${await getData("jwt")}`
+//         }
+//     })
+// }
