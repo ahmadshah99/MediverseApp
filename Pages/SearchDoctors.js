@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
 import { Text, Switch, SearchBar, Button, Input } from 'react-native-elements';
 import Menu from '../components/Menu';
+import { FontAwesome5 } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 import {GooglePlacesAutocomplete} from "react-native-google-places-autocomplete";
 import Constants from 'expo-constants';
@@ -327,7 +328,7 @@ const SearchDoctors = ({ navigation }) => {
 
     return (
         <View style={styles.mainView}>
-            <Text h1 style={styles.titleText}>Find a Doctor</Text>
+            <Text h3 style={styles.titleText}>Find a Doctor</Text>
             <View style={{ width: '100%'}}>
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Show walk-in only?</Text>
@@ -388,6 +389,7 @@ const SearchDoctors = ({ navigation }) => {
                 <View style={[styles.picker, {marginTop: 10}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
                     <RNPickerSelect
+                        style={[styles.select]}
                         onValueChange={value => setLanguage(value)}
                         items={languagesList}
                     />
@@ -426,7 +428,15 @@ const SearchDoctors = ({ navigation }) => {
                     </View>
                 }
             </View>
-            <Menu navigation={navigation} />
+        
+            {/* <Button
+             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
+                title="Go!"
+                titleStyle={{color: "#53D8C7", padding: 10}}
+                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
+                onPress={() => navigation.push('Browse Doctors') }
+            />
+            <Menu navigation={navigation} /> */}
         </View>
     );
 };
@@ -443,9 +453,15 @@ const styles = StyleSheet.create({
         color: '#035762',
         fontWeight: 'bold',
         marginTop: 15,
-        marginBottom: '20%'
+        marginBottom: 15,
+        textAlign: 'center',
     },
     searchBar: {
+        marginBottom: 30,
+        marginTop: 15,
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50,
         padding: 10,
         position: 'absolute',
         backgroundColor: '#fff',
@@ -464,5 +480,10 @@ const styles = StyleSheet.create({
         height: 50,
         flexGrow: 0,
         flexShrink: 0
+    },
+
+    select: {
+        borderRadius: 100,
+        color: "#fff",
     }
 });

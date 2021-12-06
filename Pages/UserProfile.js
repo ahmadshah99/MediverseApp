@@ -128,15 +128,13 @@ const BasicUserInfo = ({ navigation }) => {
                 </View>
             </View>
             <View style = {{ marginTop: 20 }}>
-                <Text style = {{ fontSize: 17, marginBottom: 10 }}>Planned medical itineracy</Text>
-                <TouchableHighlight style={{ backgroundColor: "#035762", borderRadius: 15, padding: 20, width: 250 }}>
-                    <View style = {{ flexDirection: "row" }}>
-                      <Icon name='download' type='font-awesome' size={30} color='#53D8C7' style = {{ marginRight: 10 }} />
-                      <Text style = {{ color: "#53D8C7" }}>DOWNLOAD MEDICAL ITINERACY</Text>
-                    </View>
-                </TouchableHighlight>
+                <View style = {{ flexDirection: "row" }}>
+                    <Icon name='download' type='font-awesome' size={30} color='#53D8C7' style = {{ marginRight: 10 }} />
+                    <Text style = {{ color: "#53D8C7" }}>MEDICAL ITINERARY</Text>
+                </View>
                 {/* TODO: Expandable view */}
-                <View style = {{ backgroundColor: "#fff", width: 200, marginTop: 20, paddingHorizontal: 10, paddingBottom: 10, borderRadius: 10, shadowColor: 'darkgrey', shadowRadius: 5, shadowOffset: 10, elevation: 5, alignItems: "center",  flexDirection: "row", justifyContent: "center" }}>
+                <View style = {{ backgroundColor: "#fff", width: 250, marginTop: 20, paddingHorizontal: 10, paddingBottom: 10, borderRadius: 10, boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50, alignItems: "center",  flexDirection: "row", justifyContent: "center" }}>
                     <Text style = {{ color: '#53D8C7', fontSize: 20, marginTop: 10 }}>Covid Vaccine Info</Text>
                     <Icon name="chevron-down" type='font-awesome' size={20} color="#53D8C7" />
                 </View>
@@ -242,7 +240,7 @@ const UserProfile = ({navigation}) => {
                 <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
                 {(currentTab === 0) && <BasicUserInfo navigation={navigation} />}
                 {(currentTab === 1) && <MedicalInfo />}
-                {(currentTab === 2) && <PrescriptionsInfo />}
+                {/* {(currentTab === 2) && <PrescriptionsInfo />} */}
             </ScrollView>
             <Menu navigation={navigation} />
         </View>
@@ -300,7 +298,7 @@ const styles = StyleSheet.create({
     },
     userProfileNavBar: {
         flexDirection: 'row',
-        backgroundColor: "lightgrey",
+        backgroundColor: "#035762",
         paddingLeft: 20,
         marginVertical: 20
     },
@@ -310,6 +308,8 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginRight: 10,
         paddingLeft: 5,
+        color: '#F4F4F4'
+
     },
     userProfileNavBarTextCurrentTab: {
         marginVertical: 10,
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         marginRight: 10,
         paddingLeft: 5,
-        textDecorationLine: 'underline'
+        color: '#53D8C7'
     },
     statusText: {
         color: '#09355C',
