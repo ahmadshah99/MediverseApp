@@ -24,7 +24,6 @@ const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
         <View style = {styles.userProfileNavBar}>
             <Text style={(currentTab === 0) ? styles.userProfileNavBarTextCurrentTab : styles.userProfileNavBarText} onPress={()=> setCurrentTab(0)}>ME </Text>
             <Text style={(currentTab === 1) ? styles.userProfileNavBarTextCurrentTab : styles.userProfileNavBarText} onPress={()=> setCurrentTab(1)}>MEDICAL </Text>
-            <Text style={(currentTab === 2) ? styles.userProfileNavBarTextCurrentTab : styles.userProfileNavBarText} onPress={()=> setCurrentTab(2)}>PRESCRIPTIONS </Text>
         </View>
     )
 }
@@ -198,36 +197,36 @@ const MedicalInfo = () => {
     )
 }
 
-const PrescriptionsInfo = () => {
-    return (
-        <View>
-            <Text h1 style = {{ marginBottom: 20 }}>Prescriptions</Text>
-            <View style = {{ borderColor: "#035762", borderWidth: 2, borderRadius: 10, paddingVertical: 8, paddingHorizontal: 5, width: "70%", marginBottom: 15 }}>
-                <Text h4>My Prescriptions</Text>
-                <Text h4>Recently Prescribed</Text>
-                <Text>Augmentine</Text>
-                <Text h4>Interactions</Text>
-                <Text>Claritin</Text>
-            </View>
+// const PrescriptionsInfo = () => {
+//     return (
+//         <View>
+//             <Text h1 style = {{ marginBottom: 20 }}>Prescriptions</Text>
+//             <View style = {{ borderColor: "#035762", borderWidth: 2, borderRadius: 10, paddingVertical: 8, paddingHorizontal: 5, width: "70%", marginBottom: 15 }}>
+//                 <Text h4>My Prescriptions</Text>
+//                 <Text h4>Recently Prescribed</Text>
+//                 <Text>Augmentine</Text>
+//                 <Text h4>Interactions</Text>
+//                 <Text>Claritin</Text>
+//             </View>
 
-            <Text h4>Prescribed to me</Text>
-            <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name="upload" type="font-awesome" size={25} />
-                <Text> UPLOAD PAST PRESCRIPTIONS</Text>
-            </View>
-            <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name="eye" type="font-awesome" size={25} />
-                <Text> VIEW PRESCRIPTIONS HISTORY</Text>
-            </View>
-            <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                {/* <Icon name="comment" type="font-awesome" size={25} />
-                 */}
-                 <Entypo name="message" size={25} color="black" />
-                <Text> REQUEST PRESCRIPTIONS RENEWAL</Text>
-            </View>
-        </View>
-    )
-}
+//             <Text h4>Prescribed to me</Text>
+//             <View style = {{ flexDirection: "row", alignItems: "center" }}>
+//                 <Icon name="upload" type="font-awesome" size={25} />
+//                 <Text> UPLOAD PAST PRESCRIPTIONS</Text>
+//             </View>
+//             <View style = {{ flexDirection: "row", alignItems: "center" }}>
+//                 <Icon name="eye" type="font-awesome" size={25} />
+//                 <Text> VIEW PRESCRIPTIONS HISTORY</Text>
+//             </View>
+//             <View style = {{ flexDirection: "row", alignItems: "center" }}>
+//                 {/* <Icon name="comment" type="font-awesome" size={25} />
+//                  */}
+//                  <Entypo name="message" size={25} color="black" />
+//                 <Text> REQUEST PRESCRIPTIONS RENEWAL</Text>
+//             </View>
+//         </View>
+//     )
+// }
 
 const UserProfile = ({navigation}) => {
     const [currentTab, setCurrentTab] = useState(0);
