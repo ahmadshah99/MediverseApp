@@ -3,8 +3,6 @@ import {Image, StyleSheet, View} from 'react-native';
 import {Card, Icon, Text} from 'react-native-elements';
 
 const DoctorCard = (props) => {
-    console.log(props.doctor)
-
     return (
         <Card style={styles.doctorCard}>
             <View>
