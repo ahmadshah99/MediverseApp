@@ -328,7 +328,7 @@ const SearchDoctors = ({ navigation }) => {
 
     return (
         <View style={styles.mainView}>
-            <Text h1 style={styles.titleText}>Find a Doctor</Text>
+            <Text h3 style={styles.titleText}>Find a Doctor</Text>
             <View style={{ width: '100%'}}>
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Show walk-in only?</Text>
@@ -393,6 +393,7 @@ const SearchDoctors = ({ navigation }) => {
                 <View style={[styles.picker, {marginTop: 10}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
                     <RNPickerSelect
+                        style={[styles.select]}
                         onValueChange={value => setLanguage(value)}
                         items={languagesList}
                     />
@@ -449,7 +450,8 @@ const styles = StyleSheet.create({
         color: '#035762',
         fontWeight: 'bold',
         marginTop: 15,
-        marginBottom: '5%'
+        marginBottom: 15,
+        textAlign: 'center',
     },
     searchBar: {
         marginBottom: 30,
@@ -475,5 +477,10 @@ const styles = StyleSheet.create({
         height: 50,
         flexGrow: 0,
         flexShrink: 0
+    },
+
+    select: {
+        borderRadius: 100,
+        color: "#fff",
     }
 });

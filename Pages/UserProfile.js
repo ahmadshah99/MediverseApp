@@ -130,7 +130,7 @@ const BasicUserInfo = ({ navigation }) => {
             <View style = {{ marginTop: 20 }}>
                 <View style = {{ flexDirection: "row" }}>
                     <Icon name='download' type='font-awesome' size={30} color='#53D8C7' style = {{ marginRight: 10 }} />
-                    <Text style = {{ color: "#53D8C7" }}>DOWNLOAD MEDICAL ITINERACY</Text>
+                    <Text style = {{ color: "#53D8C7" }}>MEDICAL ITINERARY</Text>
                 </View>
                 {/* TODO: Expandable view */}
                 <View style = {{ backgroundColor: "#fff", width: 250, marginTop: 20, paddingHorizontal: 10, paddingBottom: 10, borderRadius: 10, boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",

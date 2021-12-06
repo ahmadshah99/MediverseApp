@@ -9,7 +9,6 @@ import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import translationList from '../components/TranslationList';
 import {Switch } from 'react-native-elements';
-import { Linking } from "react-native";
 import { storeData, getData, removeItemValue } from '../utils/auth.js';
 import DialogInput from 'react-native-dialog-input';
 
@@ -80,9 +79,9 @@ const MedicineTranslator = ({ navigation }) => {
 
     return (
         <View style={styles.mainView}>
-            <Text h1 style={styles.titleText}>Translate My Medicine</Text>
-            <View style={{ width: '100%' }}>
-            <SearchBar
+            <Text h3 style={styles.titleText}>Translate My Medicine</Text>
+            <View style={{ width: '100%'}}>
+            {/* <SearchBar
                 placeholder="Medication name"
                 containerStyle={styles.searchBar}
                 inputContainerStyle={{backgroundColor: '#fff'}}
@@ -90,9 +89,9 @@ const MedicineTranslator = ({ navigation }) => {
                 onChangeText={setMedicineSearchValue}
                 lightTheme
                 round
-            />
+            /> */}
 
-            <Text style = {{ fontSize: 12, marginBottom: 10, marginTop: -20, color: "blue", textDecorationLine: "underline", textAlign: "right"}} a onPress = {() => alert(supportedMedications)}>view supported medicines</Text>
+            {/* <Text style = {{ fontSize: 12, marginBottom: 10, marginTop: -20, color: "blue", textDecorationLine: "underline", textAlign: "right"}} a onPress = {() => alert(supportedMedications)}>view supported medicines</Text> */}
 
             <View style = {{ flexDirection: "row", alignItems: "center" }}>
                 <View style = {{ flexDirection: "row", alignItems: 'center', marginRight: 10, marginTop: -20, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
@@ -161,15 +160,6 @@ const MedicineTranslator = ({ navigation }) => {
     />
     </View>
 
-
-
-            <Button
-             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
-                title="Go!"
-                titleStyle={{color: "#53D8C7", padding: 10}}
-                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
-                onPress={() => navigation.navigate('Translation Results', {navigation: navigation, medicineName: medicineSearchValue, countryName: countrySearchValue}) }
-/>
 </View>
 
 
@@ -235,21 +225,13 @@ const MedicineTranslator = ({ navigation }) => {
       rowTextStyle={styles.dropdown1RowTxtStyle}
 />
 </View>
-
- 
-
             <Button
-                title="Translate My Medicine"
-                buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
+             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
+                title="Go!"
+                titleStyle={{color: "#53D8C7", padding: 10}}
+                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
                 onPress={() => handleNavigationToTranslationResults() }
             />
-            <Button
-                        icon={ <FontAwesome5 name="map" size={16} color="#53D8C7"/>}
-                        title="Derb Sidi Messaoud 40, Marrakesh, Morocco"
-                        titleStyle={{color: "#53D8C7", padding: 10}}
-                        buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
-                        onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=Derb Sidi Messaoud 40, Marrakesh, Morocco')}
-                    />
     
 
         <Menu navigation={navigation} />
@@ -278,7 +260,8 @@ const styles = StyleSheet.create({
         color: '#035762',
         fontWeight: 'bold',
         marginTop: 15,
-        marginBottom: '5%'
+        marginBottom: 15,
+        textAlign: 'center',
     },
     dropdown1BtnStyle: {
         width: "100%",
@@ -291,7 +274,7 @@ const styles = StyleSheet.create({
         borderRadius:50}
       ,
       dropdown1BtnTxtStyle: { color: "#444", textAlign: "left" },
-      dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+      dropdown1DropdownStyle: { backgroundColor: "#EFEFEF", width: "100%"},
       dropdown1RowStyle: {
         backgroundColor: "#EFEFEF",
         borderBottomColor: "#C5C5C5",

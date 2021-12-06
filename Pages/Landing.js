@@ -17,7 +17,7 @@ const Landing = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <View style={{ margin: 5 }}>
-                <Text h3 style={styles.titleText}>All-You-Need Medical Travel Companion</Text>
+                {/* <Text h3 style={styles.titleText}>All-You-Need Medical Travel Companion</Text> */}
                 <Text h4>What can we do for you?</Text>
             </View>
             <TouchableHighlight
@@ -34,10 +34,10 @@ const Landing = ({ navigation }) => {
                 <CardButton title="Translate my medicine" icon={medicineButtonIcon} />
             </TouchableHighlight>
 
-            <View style={styles.landingPageImages}>
-                <Image source={landingPageMan} style={{ height: 150, width: 123 }} />
-                <Image source={landingPageMan2} style={{ height: 131, width: 140 }} />
-            </View>
+            {/* <View style={styles.landingPageImages}> */}
+                {/* <Image source={landingPageMan} style={{ height: 150, width: 123 }} /> */}
+                {/* <Image source={landingPageMan2} style={{ height: 131, width: 140 }} /> */}
+            {/* </View> */}
             <Menu navigation={navigation} />
         </ScrollView>
     )
@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
-    titleText: {
-        color: '#035762',
-        fontWeight: 'bold',
-        marginTop: 15,
-        marginBottom: 15,
-        textAlign: 'center',
-    },
+    // titleText: {
+    //     color: '#035762',
+    //     fontWeight: 'bold',
+    //     marginTop: 15,
+    //     marginBottom: 15,
+    //     textAlign: 'center',
+    // },
     buttonView: {
         display: 'flex',
         alignItems: 'center',

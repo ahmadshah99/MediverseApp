@@ -76,7 +76,7 @@ const AuthScreen = ({ navigation, route }) => {
     return (
         <ImageBackground source={require('../assets/images/backgrounds/loggedout.png')} style={styles.image}>
             <View style={styles.card}>
-                <Text style={styles.heading}>{isLogin ? 'LOGIN' : 'JOIN US'}</Text>
+                <Text style={styles.heading}>{isLogin ? 'Login' : 'Join Us'}</Text>
                 <View style={styles.form}>
                     <View style={styles.inputs}>
                         <TextInput style={styles.input} placeholder="Email" autoCapitalize="none" onChangeText={setEmail}></TextInput>
@@ -159,9 +159,9 @@ const styles = StyleSheet.create({
         marginVertical: 5,
     },
     buttonText: {
-        color: 'white',
+        color: '#53D8C7',
         fontSize: 16,
-        fontWeight: '400'
+        fontWeight: '600'
     },
     buttonAlt: {
         width: '80%',

@@ -105,6 +105,10 @@ const DoctorProfile = ({navigation, route}) => {
                         titleStyle={{color: "#53D8C7", padding: 10}}
                         buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
                         onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + 'Derb Sidi Messaoud 40, Marrakesh, Morocco')}
+                        // dymanic version
+                        //  onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + route.params.item.address.streetAddress + route.params.item.address.city + route.params.item.address.country )}
+
+
                     />
                     <View style={styles.doctorActions}>
                         <Icon onPress={() => handleHeartPress()} name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
