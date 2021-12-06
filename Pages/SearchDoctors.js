@@ -368,11 +368,16 @@ const SearchDoctors = ({ navigation }) => {
                             }
                         }}
                     />
-                    <View style={{ flexDirection: "row", marginBottom: 10 }}>
+
+                </View>
+                {
+                    !isPremium && 
+                    <View style={{flexDirection: 'row', marginVertical: 10}}>
                         <AntDesign name="star" size={24} color="#53D8C7" />
                         <Text>To see more options for doctors and languages, consider becoming a premium user.</Text>
                     </View>
-                </View>
+                }
+
                 <View style={[styles.picker, {marginTop: 10}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
                     <RNPickerSelect
