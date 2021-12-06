@@ -19,11 +19,11 @@ gets a user, given their corresponding id
 
 @params{id} id
  */
-export const getUserById = async (id) => {
-    return RequestClient.get('user/findOne', {
+export const getUserById = async () => {
+    return RequestClient.get('user/findOne',
+    {
     headers: {'Authorization': `bearer ${await getData("jwt")}`}
-    }
-    )
+    })
 };
 
 /*

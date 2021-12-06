@@ -14,7 +14,7 @@ import Landing2 from './Landing2';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
-
+// import {getUserById} from ''
 
 //https://icons.expo.fyi/
 import { Entypo } from '@expo/vector-icons'; 

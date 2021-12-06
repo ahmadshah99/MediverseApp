@@ -34,7 +34,7 @@ const DoctorReviewHolder = (props) => {
     return (
         <ScrollView contentContainerStyle={styles.reviewSection}>
             <View style={styles.reviewSectionHeader}>
-                <Text h1 gutterBottom>Reviews</Text>
+                <Text h1 gutterBottom>{reviews.length} Reviews</Text>
                 <Icon name='edit'
                       type='font-awesome'
                       size={30}

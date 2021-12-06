@@ -6,6 +6,7 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import Booking from "./Booking";
 import DoctorReviewHolder from "../components/DoctorReviewHolder";
 import { storeData, getData } from '../utils/auth.js';
+import { AntDesign } from '@expo/vector-icons';
 
 const DoctorProfile = ({navigation, route}) => {
     const API_URL = 'http://localhost:5001';
@@ -46,6 +47,14 @@ const DoctorProfile = ({navigation, route}) => {
                 </View>
         }
     ]
+
+    function handleHeartPress(){
+        if(isPremium){
+            alert("Doctor saved");
+        }else{
+            alert("Please become a premium user to save a doctor for future refrence.");
+        }
+    }
 
 
     useEffect(async () => {
@@ -90,7 +99,7 @@ const DoctorProfile = ({navigation, route}) => {
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.streetAddress }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
                     <View style={styles.doctorActions}>
-                        <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
+                        <Icon onPress={() => handleHeartPress()} name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
                         <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
                     </View>
                 </View>
@@ -101,9 +110,16 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
                 {
-                    isPremium &&         
+                    isPremium ?        
                 <View>
                     <DoctorReviewHolder doctor={route.params.item}/>
+                 </View>
+
+                 :
+
+                 <View style={{ flexDirection: "row" }}>
+                     <AntDesign name="star" size={24} color="#53D8C7" />
+                     <Text>To see doctors review, consider becoming a premium user.</Text>
                  </View>
                 }
 
