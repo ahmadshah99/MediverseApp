@@ -1,43 +1,78 @@
 import React, { useState, useEffect } from 'react';
-import {StyleSheet, View, TouchableHighlight, FlatList} from 'react-native';
+import { StyleSheet, View, TouchableHighlight, FlatList, Text } from 'react-native';
 
 import DoctorCard from "../components/DoctorCard";
-import {getDoctorsBySearch} from "../api/Doctor";
+import { getDoctorById } from "../api/Doctor";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
+import { getUserById } from '../api/User';
+import { storeData, getData, removeItemValue } from '../utils/auth.js';
+import axios from 'axios';
+
 
 const SavedDoctors = ({ navigation }) => {
-    // list of doctors to render
-    const [doctors, setDoctors] = useState([])
 
-    const renderCards = ({item }) => {
+    // list of doctors to render
+    const [savedDoctors, setSavedDoctors] = useState([])
+    const API_URL = 'http://localhost:5001';
+
+
+    const renderCards = async ({ item }) => {
+        console.log(item)
+        axios.get(`${API_URL}/doctor/findOne/${item}`, {
+
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+        }).then((res) => {
+            console.log(res.data, "HELLO")
+            return (
+                <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', res.data)}>
+                    <DoctorCard key={res.data._id} doctor={res.data} />
+                </TouchableHighlight>
+            )
+        })
+
+    }
+
+
+    useEffect(async () => {
+        axios.get(`${API_URL}/user/findOne`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+
+        }).then((res) => {
+            console.log(res.data.savedDoctors)
+            setSavedDoctors(res.data.savedDoctors)
+        })
+    }, [])
+
+
+    const emptyDoctorFlatList = () => {
         return (
-            <TouchableHighlight onPress={() => navigation.navigate('Doctor Profile', {item})}>
-                <DoctorCard key={item._id} doctor={item} />
-            </TouchableHighlight>
+            <View style={{ display: 'flex', alignItems: 'center' }}>
+                <Text>No results found.</Text>
+            </View>
         )
     }
 
-    const searchData = {
-        'expertise[0]': 'Family Medicine',
-        'walkin': 'True',
-        'sourceAddress': 'Markham, Ontario',
-        'maxDistance': 10,
-        'sortBy': 'distance'
-    }
-
-    useEffect(() => {
-        getDoctorsBySearch(searchData).then(res => setDoctors(res.data.doctors) )
-    }, [])
-
     return (
         <View style={styles.mainView}>
-            <Header navigation={navigation}/>
+            <Header navigation={navigation} />
             <FlatList
-                style = {{ marginTop: 50 }}
+                style={{ marginTop: 50 }}
                 removeClippedSubviews
-                data={doctors}
+                data={savedDoctors}
                 renderItem={renderCards}
+                ListHeaderComponent={
+                    <View style={{ paddingLeft: 30 }}>
+                        <Text style={{ fontWeight: 'bold' }}>Showing Saved Doctors </Text>
+                    </View>
+                }
+                ListEmptyComponent={emptyDoctorFlatList()}
             />
             <Menu navigation={navigation} />
         </View>
