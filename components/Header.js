@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Card, Icon, Avatar} from 'react-native-elements'; 
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const Header = ({ navigation }) => {
     const rightArrow = <Icon name='arrowright' type='antdesign' color='#53D8C7'/>;
@@ -14,13 +15,14 @@ const Header = ({ navigation }) => {
                 containerStyle={styles.mediverseLogo}
                 onPress = {() => navigation.navigate('Browse Doctors')}
             />
-            <Avatar
+            {/* <Avatar
                 size="medium"
                 containerStyle={styles.headerProfilePicture}
                 rounded
                 source={require('../assets/images/mock_profile_picture_user.png')}
                 onPress = {() => navigation.navigate('User Profile')}
-            />
+            /> */}
+            <MaterialCommunityIcons style={styles.headerProfilePicture} name="account-question" size={55} onPress = {() => navigation.navigate('User Profile')} color="black" />
         </View>
     )
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
 import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 
@@ -6,13 +6,19 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import DoctorReview from "../components/DoctorReview";
 import DoctorCard from "../components/DoctorCard";
 import Header from '../components/Header';
-import userItem from '../components/MockUserInfo';
 import Menu from '../components/Menu';
-
+import { storeData, getData, removeItemValue } from '../utils/auth.js';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
+import Landing2 from './Landing2';
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
+// import {getUserById} from ''
 
 //https://icons.expo.fyi/
 import { Entypo } from '@expo/vector-icons'; 
-
+const API_URL = 'http://localhost:5001';
 const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
     return (
         <View style = {styles.userProfileNavBar}>
@@ -25,23 +31,93 @@ const UserProfileNavBar = ({ currentTab, setCurrentTab }) => {
 
 {/*  */}
 
-const BasicUserInfo = () => {
+const BasicUserInfo = ({ navigation }) => {
+
+    const [fName, setFName] = useState("");
+    const [lName, setLName] = useState("");
+    const [country, setCountry] = useState("");
+    const [isPremium, setIsPremium] = useState(false);
+
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+
+    function handleLogout(){
+        console.log("Logging out");
+        removeItemValue(getData("jwt"));
+        navigation.navigate("Landing2");
+    }
+
+
+
+    async function hadnlePremiumIconPress(){
+        console.log("Changing premium status to " + !isPremium);
+        let newPremVal = !isPremium;
+        const payLoad = {
+            newPremiumStatus: newPremVal.toString()
+        };
+        fetch(`${API_URL}/user/changePremiumStatus`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${await getData("jwt")}`
+                },
+                body: JSON.stringify(payLoad)
+        }).then(async res => {
+            try{
+                const jsonResPremium = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonResPremium)); 
+            }catch(e){
+                console.log(e);
+            }
+        });
+        setIsPremium(!isPremium);
+
+    }
+    
+
+    useEffect(async () => {
+        fetch(`${API_URL}/user/findOne`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+        }).then(async res => {
+            try{
+                const jsonRes = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                if (res.status === 200) {
+                    setIsError(false);
+                    setMessage("User profile data fetched successfully.");
+                    const firstName = JSON.parse(JSON.stringify(jsonRes)).firstName;
+                    const lastName = JSON.parse(JSON.stringify(jsonRes)).lastName;
+                    const homeCountry = JSON.parse(JSON.stringify(jsonRes)).country;
+                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
+                    setFName(firstName);
+                    setLName(lastName);
+                    setCountry(homeCountry);
+                    setIsPremium(isPrem);
+                } else {
+                    setIsError(true);
+                    setMessage(jsonRes.message);          
+                }
+            }catch(err){
+                console.log(err);
+            }
+        });
+    }, [])
+
     return (
         <View>
-            <Text h3 style={{ fontWeight: 'bold' }}>{ userItem.name }</Text>
+            <Text h3 style={{ fontWeight: 'bold' }}>{ fName } { lName }</Text>
             <View style={styles.userBasicInfo}>
-                <Avatar
-                    size={120}
-                    rounded
-                    containerStyle={{ marginLeft: 10, marginTop: 10}}
-                    source={require('../assets/images/mock_profile_picture_user.png')}
-                />
+                 <MaterialCommunityIcons name="account-question" size={80} color="black" style={{ marginLeft: 10, marginRight: 20, marginTop: 10}} />
                 <View style={{ marginTop: 10 }}>
                     <Text h4 style={styles.statusText}>Away from home</Text>
                     <View style={styles.locationMarkers}>
                         <View>
                             <Icon name='map-marker' style={{ marginRight: 20 }} type='font-awesome' size={50} color='#53D8C7'/>
-                            <Text>New York, {"\n"} USA</Text>
+                            <Text>{ country }</Text>
                         </View>
                         <Icon name='plane' type='font-awesome' size={30} color='#53D8C7' />
                         <View>
@@ -62,6 +138,18 @@ const BasicUserInfo = () => {
                     <Text style = {{ color: '#53D8C7', fontSize: 20, marginTop: 10 }}>Covid Vaccine Info</Text>
                     <Icon name="chevron-down" type='font-awesome' size={20} color="#53D8C7" />
                 </View>
+
+                <View style={{ flexDirection: 'row', marginVertical: 20 }}>
+                    <Text style={{ color: "#0a94a6", fontSize: 18, fontWeight: 'bold' }}>Premium? </Text>
+                    <FontAwesome5 onPress={() => hadnlePremiumIconPress()}  name = {(isPremium) ? "toggle-on" : "toggle-off"} size={24} color="black" />
+
+                </View>
+
+
+                    <View style={{ flexDirection: 'row', alignItems: "center", marginVertical: 20 }}>
+                        <MaterialIcons onPress={()=> handleLogout()} style={{ color: "#0a94a6", marginRight: 10, marginTop: 20 }} name="logout" size={20} color="black" />
+                        <Text style={{ color: "#0a94a6", fontSize: 18, marginTop: 20 }}>Sign Out</Text>
+                    </View>
             </View>
         </View>
     )
@@ -105,18 +193,6 @@ const MedicalInfo = () => {
                     </View>
                 </View>
 
-                <Text h4 style={{ marginBottom: 5 }}>Bookings</Text>
-                <View>
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Icon name="plus" type="font-awesome" size={25} />
-                        <Text> BOOK WITH A DOCTOR</Text>
-                    </View>
-
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Icon name="eye" type="font-awesome" size={25} />
-                       <Text> VIEW DOCTOR BOOKING HISTORY</Text>
-                    </View>
-                </View>
             </View>
         </View>
     )
@@ -162,7 +238,7 @@ const UserProfile = ({navigation}) => {
             <ScrollView contentContainerStyle={styles.mainView}>
                 <Header navigation={navigation} />
                 <UserProfileNavBar currentTab={currentTab} setCurrentTab={setCurrentTab} />
-                {(currentTab === 0) && <BasicUserInfo />}
+                {(currentTab === 0) && <BasicUserInfo navigation={navigation} />}
                 {(currentTab === 1) && <MedicalInfo />}
                 {/* {(currentTab === 2) && <PrescriptionsInfo />} */}
             </ScrollView>

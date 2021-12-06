@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { storeData, getData, removeItemValue } from '../utils/auth.js';
 
 
 const Menu = ({ navigation }) => {
@@ -10,6 +11,44 @@ const Menu = ({ navigation }) => {
     const HeartIcon = <Icon name='heart-o' type='font-awesome' size={30} color='#000000' />;
     const StethoscopeIcon = <Icon name='stethoscope' type='font-awesome' size={30} color='#000000' />;
     const HomeIcon = <Icon name='home' type='font-awesome' size={30} color='#000000' />;
+
+    const API_URL = 'http://localhost:5001';
+    const [isPremium, setIsPremium] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+
+    async function handleSavedDoctorsNav(){
+        fetch(`${API_URL}/user/isPremium`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${await getData("jwt")}`
+            }
+        }).then(async res => {
+            try{
+                const jsonRes = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                if (res.status === 200) {
+                    setIsError(false);
+                    setMessage("User profile data fetched successfully.");
+                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
+                    setIsPremium(isPrem);
+                    if(isPrem){
+                        navigation.navigate('Saved Doctors');
+                    }else{
+                        alert("Become a premium user to see saved doctors!")
+                    }
+                } else {
+                    setIsError(true);
+                    setMessage(jsonRes.message);          
+                }
+            }catch(err){
+                console.log(err);
+            }
+        });
+
+    }
+
 
     return (
         <View style={styles.footer}>
@@ -23,13 +62,13 @@ const Menu = ({ navigation }) => {
                     {MedkitIcon}
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Saved Doctors')}>
+            <TouchableHighlight onPress={() => handleSavedDoctorsNav()}>
                 <View>
                     {HeartIcon}
                 </View>
         
             </TouchableHighlight>
-            <TouchableHighlight onPress={() => navigation.navigate('Landing2')}>
+            <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
                 <View>
                     {UserIcon}
                 </View>
@@ -54,7 +93,8 @@ const styles = StyleSheet.create({
         left: 0,
         right: 0,
         bottom: 0,
-        width: '100%',
+        // width: 385,
+        width: "100%",
         padding: 10,
         // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
     },

@@ -1,5 +1,5 @@
 import RequestClient from "../utils/request";
-
+import { storeData, getData } from '../utils/auth.js';
 /*
     Creates a doctor review
 
@@ -9,8 +9,10 @@ import RequestClient from "../utils/request";
     @body{String} description
     @body{String} tags[0...]
  */
-export const createDoctorReview = (data) => {
-    return RequestClient.post('doctorReview/create', data)
+export const createDoctorReview = async (data) => {
+    return RequestClient.post('doctorReview/create', data, {
+    headers: {'Authorization': `bearer ${await getData("jwt")}`}
+})
 };
 
 /*
@@ -29,10 +31,11 @@ export const deleteDoctorReview = (id) => {
     @params{ID} id
     @params{String} sortBy
  */
-export const getDoctorsByReview = (id, sortBy) => {
+export const getDoctorsByReview = async (id, sortBy) => {
     return RequestClient.get('doctorReview/findForDoctorAndSort', {
+        headers: {'Authorization': `Bearer ${await getData("jwt")}`},
         params: {
-            id,
+            'doctorId': id,
             sortBy
         }
     })

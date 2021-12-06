@@ -1,4 +1,5 @@
 import RequestClient from "../utils/request";
+import { storeData, getData } from '../utils/auth.js';
 
 /*
 Creates a doctor object
@@ -40,8 +41,10 @@ returns doctors matching search criteria
 @body{Number} maxDistance
 @body{String} sortBy
  */
-export const getDoctorsBySearch = (data) => {
-    return RequestClient.post('doctor/findBySearch', data)
+export const getDoctorsBySearch = async (data) => {
+    return RequestClient.post('doctor/findBySearch', data,  {
+        headers: {'Authorization': `bearer ${await getData("jwt")}`}
+    })
 }
 
 

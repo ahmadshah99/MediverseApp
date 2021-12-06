@@ -27,19 +27,18 @@ const Landing2 = ({ navigation }) => {
                 titleStyle={{color: "#53D8C7", padding: 10}}
                 buttonStyle={styles.goButton}
                 color="#53D8C7"
-                onPress={() => navigation.navigate(AuthScreen)} />
+                onPress={() => navigation.navigate("AuthScreen", {navigation: navigation, isLogin: true})} />
             <View style={styles.space} />
             <Button
                 title="Sign Up"
                 titleStyle={{color: "#53D8C7", padding: 10}}
                 buttonStyle={styles.goButton}
                 color="#53D8C7"
-                onPress={() => navigation.navigate(AuthScreen)}
+                onPress={() => navigation.navigate("AuthScreen", {navigation: navigation, isLogin: false})}
             />
             <View style={styles.landingPageImages}>
                 <Image source={landingPageMan3} style={{ height: 160, width: 123 }} />
             </View>
-            <Menu navigation={navigation} />
         </ScrollView>
     )
 };

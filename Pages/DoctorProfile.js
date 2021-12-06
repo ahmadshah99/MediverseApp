@@ -6,9 +6,16 @@ import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import Booking from "./Booking";
 import DoctorReviewHolder from "../components/DoctorReviewHolder";
 import { Linking } from "react-native";
-
+import { storeData, getData } from '../utils/auth.js';
+import { AntDesign } from '@expo/vector-icons';
 
 const DoctorProfile = ({navigation, route}) => {
+    const API_URL = 'http://localhost:5001';
+    const [isPremium, setIsPremium] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+
+
     const firstTileContent = [
         {
             title: 'Speciality',
@@ -41,6 +48,43 @@ const DoctorProfile = ({navigation, route}) => {
                 </View>
         }
     ]
+
+    function handleHeartPress(){
+        if(isPremium){
+            alert("Doctor saved");
+        }else{
+            alert("Please become a premium user to save a doctor for future refrence.");
+        }
+    }
+
+
+    useEffect(async () => {
+        fetch(`${API_URL}/user/isPremium`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+        }).then(async res => {
+            try{
+                const jsonRes = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                if (res.status === 200) {
+                    setIsError(false);
+                    setMessage("User profile data fetched successfully.");
+                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
+                    setIsPremium(isPrem);
+                } else {
+                    setIsError(true);
+                    setMessage(jsonRes.message);          
+                }
+            }catch(err){
+                console.log(err);
+            }
+        });
+    }, [])
+
+
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.firstName } { route.params.item.lastName }</Text>
@@ -63,7 +107,7 @@ const DoctorProfile = ({navigation, route}) => {
                         onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + 'Derb Sidi Messaoud 40, Marrakesh, Morocco')}
                     />
                     <View style={styles.doctorActions}>
-                        <Icon name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
+                        <Icon onPress={() => handleHeartPress()} name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
                         <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
                     </View>
                 </View>
@@ -73,9 +117,20 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={firstTileContent} />
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
+                {
+                    isPremium ?        
                 <View>
-                   <DoctorReviewHolder doctor={route.params.item}/>
-                </View>
+                    <DoctorReviewHolder doctor={route.params.item}/>
+                 </View>
+
+                 :
+
+                 <View style={{ flexDirection: "row" }}>
+                     <AntDesign name="star" size={24} color="#53D8C7" />
+                     <Text>To see doctors review, consider becoming a premium user.</Text>
+                 </View>
+                }
+
             </ScrollView>
         </ScrollView>
     )

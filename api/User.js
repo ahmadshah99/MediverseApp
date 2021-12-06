@@ -1,5 +1,5 @@
 import RequestClient from "../utils/request";
-
+import { storeData, getData } from '../utils/auth.js';
 /*
     Creates a user
 
@@ -19,9 +19,10 @@ gets a user, given their corresponding id
 
 @params{id} id
  */
-export const getUserById = (id) => {
-    return RequestClient.get('user/findOne', {
-        params: { id }
+export const getUserById = async () => {
+    return RequestClient.get('user/findOne',
+    {
+    headers: {'Authorization': `bearer ${await getData("jwt")}`}
     })
 };
 

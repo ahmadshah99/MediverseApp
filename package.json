@@ -20,6 +20,7 @@
     "react-native": "0.64.2",
     "react-native-calendars": "^1.1269.0",
     "react-native-country-flag": "^1.1.4",
+    "react-native-dialog-input": "^1.0.8",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-maps": "^0.29.4",
