@@ -5,6 +5,7 @@ import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import Booking from "./Booking";
 import DoctorReviewHolder from "../components/DoctorReviewHolder";
+import { Linking } from "react-native";
 import { storeData, getData } from '../utils/auth.js';
 import { AntDesign } from '@expo/vector-icons';
 
@@ -98,6 +99,17 @@ const DoctorProfile = ({navigation, route}) => {
                     <Text h4>{ route.params.item.clinicName }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.streetAddress }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
+                    <Button
+                        icon={ <FontAwesome5 name="map" size={16} color="#53D8C7"/>}
+                        title="Derb Sidi Messaoud 40, Marrakesh, Morocco"
+                        titleStyle={{color: "#53D8C7", padding: 10}}
+                        buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
+                        onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + 'Derb Sidi Messaoud 40, Marrakesh, Morocco')}
+                        // dymanic version
+                        //  onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + route.params.item.address.streetAddress + route.params.item.address.city + route.params.item.address.country )}
+
+
+                    />
                     <View style={styles.doctorActions}>
                         <Icon onPress={() => handleHeartPress()} name='heart' style={{ marginRight: 20 }} type='font-awesome' size={40} color='#53D8C7'/>
                         <Icon name='calendar' type='font-awesome' size={40} color='#53D8C7' onPress={() => navigation.navigate("Booking", {doctorItem: route.params.item})} />
@@ -126,6 +138,7 @@ const DoctorProfile = ({navigation, route}) => {
             </ScrollView>
         </ScrollView>
     )
+
 }
 
 const styles = StyleSheet.create({

@@ -8,6 +8,7 @@ import Menu from '../components/Menu';
 import SelectDropdown from 'react-native-select-dropdown';
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import translationList from '../components/TranslationList';
+import {Switch } from 'react-native-elements';
 import { storeData, getData, removeItemValue } from '../utils/auth.js';
 import DialogInput from 'react-native-dialog-input';
 
@@ -77,7 +78,35 @@ const MedicineTranslator = ({ navigation }) => {
     } 
 
     return (
-        <View>
+        <View style={styles.mainView}>
+            <Text h3 style={styles.titleText}>Translate My Medicine</Text>
+            <View style={{ width: '100%'}}>
+            {/* <SearchBar
+                placeholder="Medication name"
+                containerStyle={styles.searchBar}
+                inputContainerStyle={{backgroundColor: '#fff'}}
+                value={medicineSearchValue}
+                onChangeText={setMedicineSearchValue}
+                lightTheme
+                round
+            /> */}
+
+            {/* <Text style = {{ fontSize: 12, marginBottom: 10, marginTop: -20, color: "blue", textDecorationLine: "underline", textAlign: "right"}} a onPress = {() => alert(supportedMedications)}>view supported medicines</Text> */}
+
+            <View style = {{ flexDirection: "row", alignItems: "center" }}>
+                <View style = {{ flexDirection: "row", alignItems: 'center', marginRight: 10, marginTop: -20, paddingVertical: 8, paddingHorizontal: 15, borderRadius: 8 }}>
+                    {/* <FontAwesome5 name="camera" size={16} color="#53D8C7" /> */}
+                    {/* <Text style = {{ color: "#53D8C7" }}> IMAGE {"\n"} SEARCH</Text> */}
+                </View>
+    
+            </View>
+
+            <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10}}>Use my location?</Text>
+                <Switch value={true} color="#035762" />
+            </View>
+
+        {/* <View>
             <ScrollView contentContainerStyle={styles.mainView}>
             <Header navigation={navigation} />
             <Text h3 style = {{ marginTop: 10, color: "#035762" }}>Translate My Medicine</Text>
@@ -88,7 +117,7 @@ const MedicineTranslator = ({ navigation }) => {
                     <Text style = {{ fontWeight: "bold" }}><Text style={{ color: "red" }}>* </Text>Use home country's location? </Text>
                     <FontAwesome5 onPress={() => handleTokenChange()}  name = {(toggleState) ? "toggle-on" : "toggle-off"} size={24} color="black" />
                 </View>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
             {/* <SearchBar
                 placeholder="Country"
                 containerStyle={styles.searchBar}
@@ -128,7 +157,9 @@ const MedicineTranslator = ({ navigation }) => {
       dropdownStyle={styles.dropdown1DropdownStyle}
       rowStyle={styles.dropdown1RowStyle}
       rowTextStyle={styles.dropdown1RowTxtStyle}
-/>
+    />
+    </View>
+
 </View>
 
 
@@ -194,16 +225,15 @@ const MedicineTranslator = ({ navigation }) => {
       rowTextStyle={styles.dropdown1RowTxtStyle}
 />
 </View>
-
- 
-
             <Button
-                title="Translate My Medicine"
-                buttonStyle={{ backgroundColor: "#035762", padding: 15 }}
+             icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
+                title="Go!"
+                titleStyle={{color: "#53D8C7", padding: 10}}
+                buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
                 onPress={() => handleNavigationToTranslationResults() }
             />
+    
 
-        </ScrollView>
         <Menu navigation={navigation} />
         </View>
 
@@ -213,26 +243,38 @@ const MedicineTranslator = ({ navigation }) => {
 export default MedicineTranslator;
 
 const styles = StyleSheet.create({
-    mainView : {
-        padding: 20,
-        marginBottom: 250
+    mainView: {
+        flex: 1,
+        alignItems: 'center',
+        padding: 10
     },
     searchBar: {
+        width: "100%",
         marginBottom: 30,
         marginTop: 15,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50},
+
+    titleText: {
+        color: '#035762',
+        fontWeight: 'bold',
+        marginTop: 15,
+        marginBottom: 15,
+        textAlign: 'center',
     },
     dropdown1BtnStyle: {
-        width: "80%",
+        width: "100%",
         height: 50,
         backgroundColor: "#FFF",
-        borderRadius: 8,
-        borderWidth: 1,
-        borderColor: "#444",
-        marginBottom: 10
-      },
+        marginBottom: 10,
+        marginTop: 15,
+        backgroundColor: '#fff',
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
+        borderRadius:50}
+      ,
       dropdown1BtnTxtStyle: { color: "#444", textAlign: "left" },
-      dropdown1DropdownStyle: { backgroundColor: "#EFEFEF" },
+      dropdown1DropdownStyle: { backgroundColor: "#EFEFEF", width: "100%"},
       dropdown1RowStyle: {
         backgroundColor: "#EFEFEF",
         borderBottomColor: "#C5C5C5",

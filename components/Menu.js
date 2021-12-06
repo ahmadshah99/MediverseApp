@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, TouchableHighlight, Image } from 'react-native';
 import { Icon } from 'react-native-elements';
+import { BackgroundImage } from 'react-native-elements/dist/config';
 import { storeData, getData, removeItemValue } from '../utils/auth.js';
 
 
 const Menu = ({ navigation }) => {
     const UserIcon = <Icon name='user-o' type='font-awesome' size={30} color='#000000' />;
-    const BellIcon = <Icon name='bell-o' type='font-awesome' size={30} color='#000000' />;
     const MedkitIcon = <Icon name='medkit' type='font-awesome' size={30} color='#000000' />;
     const HeartIcon = <Icon name='heart-o' type='font-awesome' size={30} color='#000000' />;
     const StethoscopeIcon = <Icon name='stethoscope' type='font-awesome' size={30} color='#000000' />;
-    const HomeIcon = <Icon name='home' type='font-awesome' size={30} color='#000000' />;
 
     const API_URL = 'http://localhost:5001';
     const [isPremium, setIsPremium] = useState(false);
@@ -101,6 +100,7 @@ const styles = StyleSheet.create({
         // width: 385,
         width: "100%",
         padding: 10,
+        // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
     },
 
 });
