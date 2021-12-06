@@ -9,6 +9,7 @@ import Menu from "../components/Menu";
 import { Ionicons } from '@expo/vector-icons';
 import { storeData, getData } from '../utils/auth.js';
 import { AntDesign } from '@expo/vector-icons';
+import axios from "axios";
 
 
 const BrowseDoctors = ({ route, navigation }) => {
@@ -17,7 +18,7 @@ const BrowseDoctors = ({ route, navigation }) => {
     const [formattedLocation, setFormattedLocation] = useState(route.params.location)
     const [filterBy, setFilterBy] = useState(0) //0 - nothing, 1 - rating, 2 - distance
 
-    
+
     const API_URL = 'http://localhost:5001';
     const [isPremium, setIsPremium] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -48,31 +49,21 @@ const BrowseDoctors = ({ route, navigation }) => {
             setFormattedLocation(res.data.formattedSearchAddress)
         } ).catch(e => alert(e));
 
-        fetch(`${API_URL}/user/isPremium`, {
-            method: 'GET',
+        axios.get(`${API_URL}/user/isPremium`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `bearer ${await getData("jwt")}`
             }
         }).then(async res => {
             try{
-                const jsonRes = await res.json();
-                console.log("Response: \n" + JSON.stringify(jsonRes));   
                 if (res.status === 200) {
                     setIsError(false);
                     setMessage("User profile data fetched successfully.");
-                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
+                    const isPrem = res.data.isPremium;
                     setIsPremium(isPrem);
-                    if(isPrem){
-                        setLanguagesList(premiumLanguagesList);
-                        setExpertiseList(premiumExpertiseList);
-                    }else{
-                        setLanguagesList(basicLanguagesList);
-                        setExpertiseList(basicExpertiseList);
-                    }
                 } else {
                     setIsError(true);
-                    setMessage(jsonRes.message);          
+                    setMessage(res.data.message);
                 }
             }catch(err){
                 console.log(err);
