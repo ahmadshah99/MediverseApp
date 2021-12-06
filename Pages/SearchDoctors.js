@@ -302,7 +302,7 @@ const SearchDoctors = ({ navigation }) => {
             }).then(async res => {
                 try{
                     const jsonRes = await res.json();
-                    console.log("Response: \n" + JSON.stringify(jsonRes));   
+                    console.log("Response: \n" + JSON.stringify(jsonRes));
                     if (res.status === 200) {
                         setIsError(false);
                         setMessage("User profile data fetched successfully.");
@@ -317,7 +317,7 @@ const SearchDoctors = ({ navigation }) => {
                         }
                     } else {
                         setIsError(true);
-                        setMessage(jsonRes.message);          
+                        setMessage(jsonRes.message);
                     }
                 }catch(err){
                     console.log(err);
@@ -334,7 +334,7 @@ const SearchDoctors = ({ navigation }) => {
                     <Switch value={walkin} onValueChange={() => setWalkin(walkin => !walkin)} color="#035762" />
                 </View>
                 <View style={styles.searchContainer}>
-                    {/* <GooglePlacesAutocomplete
+                     <GooglePlacesAutocomplete
                         ref={ref}
                         placeholder='Where do you want to search?'
                         minLength={2}
@@ -367,27 +367,23 @@ const SearchDoctors = ({ navigation }) => {
                                 top: 55
                             }
                         }}
-                    /> */}
-                    <SearchBar
-                        placeholder="Where do you want to search?"
-                        containerStyle={styles.searchBar}
-                        inputContainerStyle={{backgroundColor: '#fff'}}
-                        onChangeText={val => setLocation(val)}
-                        value={location}
-                        lightTheme
-                        round
-                    />
+                        requestUrl={{
+                            url:
+                                'https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api',
+                            useOnPlatform: 'web',
+                        }}
+                     />
+                    {/*/>*/}
+                    {/*<SearchBar*/}
+                    {/*    placeholder="Where do you want to search?"*/}
+                    {/*    containerStyle={styles.searchBar}*/}
+                    {/*    inputContainerStyle={{backgroundColor: '#fff'}}*/}
+                    {/*    onChangeText={val => setLocation(val)}*/}
+                    {/*    value={location}*/}
+                    {/*    lightTheme*/}
+                    {/*    round*/}
+                    {/*/>*/}
                 </View>
-
-
-
-                {
-                    !isPremium && 
-                    <View style={{flexDirection: 'row', marginVertical: 10}}>
-                        <AntDesign name="star" size={24} color="#53D8C7" />
-                        <Text>To see more options for doctors and languages, consider becoming a premium user.</Text>
-                    </View>
-                }
 
                 <View style={[styles.picker, {marginTop: 10}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
@@ -422,6 +418,13 @@ const SearchDoctors = ({ navigation }) => {
                     }) }
                     disabled={!location}
                 />
+                {
+                    !isPremium &&
+                    <View style={{flexDirection: 'row', marginVertical: 10}}>
+                        <AntDesign name="star" size={24} color="#53D8C7" />
+                        <Text>To see more options for doctors and languages, consider{'\n'} becoming a premium user.</Text>
+                    </View>
+                }
             </View>
             <Menu navigation={navigation} />
         </View>
