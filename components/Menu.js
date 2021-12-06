@@ -10,6 +10,7 @@ const Menu = ({ navigation }) => {
     const MedkitIcon = <Icon name='medkit' type='font-awesome' size={30} color='#000000' />;
     const HeartIcon = <Icon name='heart-o' type='font-awesome' size={30} color='#000000' />;
     const StethoscopeIcon = <Icon name='stethoscope' type='font-awesome' size={30} color='#000000' />;
+    const HomeIcon = <Icon name='home' type='font-awesome' size={30} color='#000000' />;
 
     const API_URL = 'http://localhost:5001';
     const [isPremium, setIsPremium] = useState(false);
