@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import {StyleSheet, View } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {ScrollView, StyleSheet, View, Dimensions} from 'react-native';
 import { Text, Switch, SearchBar, Button, Input } from 'react-native-elements';
 import Menu from '../components/Menu';
 import RNPickerSelect from 'react-native-picker-select';
@@ -12,6 +12,13 @@ const SearchDoctors = ({ navigation }) => {
     const [expertise, setExpertise] = useState('')
     const [language, setLanguage] = useState('')
     const [maxDistance, setMaxDistance] = useState(10)
+
+    const windowSize = Dimensions.get('window')
+    const deviceWidth = windowSize.width;
+    const deviceHeight = windowSize.height;
+
+    const ref = useRef();
+
     const distanceList = [
         {
             label: 'Any distance',
@@ -141,23 +148,47 @@ const SearchDoctors = ({ navigation }) => {
     return (
         <View style={styles.mainView}>
             <Text h1 style={styles.titleText}>Find a Doctor</Text>
-            <View style={{width: '100%'}}>
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <View style={{ width: '100%'}}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Show walk-in only?</Text>
                     <Switch value={walkin} onValueChange={() => setWalkin(walkin => !walkin)} color="#035762" />
                 </View>
-                <View>
-                    <SearchBar
-                        placeholder="Where do you want to search?"
-                        containerStyle={styles.searchBar}
-                        inputContainerStyle={{backgroundColor: '#fff'}}
-                        onChangeText={val => setLocation(val)}
-                        value={location}
-                        lightTheme
-                        round
+                <View style={styles.searchContainer}>
+                    <GooglePlacesAutocomplete
+                        ref={ref}
+                        placeholder='Where do you want to search?'
+                        minLength={2}
+                        onPress={(data, details = null) => {
+                            // 'details' is provided when fetchDetails = true
+                            console.log(data, details);
+                            setLocation(data.description)
+                        }}
+                        textInputProps={{
+                            onFocus: () => {
+                                setLocation('')
+                                ref.current?.setAddressText('')
+                            }
+                        }}
+                        query={{
+                            key: 'AIzaSyAXQdP9ou6p5fBY6VHl9ScVOIuAr3fOGeI',
+                            language: 'en',
+                        }}
+                        styles={{
+                            textInput: styles.searchBar,
+                            listViewContainer: {
+                                position: 'absolute',
+                                width: deviceWidth,
+                                top: 30,
+                            },
+                            listView: {
+                                position: 'absolute',
+                                height: deviceHeight,
+                                width: deviceWidth
+                            }
+                        }}
                     />
                 </View>
-                <View style={styles.picker}>
+                <View style={[styles.picker, {marginTop: 10}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
                     <RNPickerSelect
                         onValueChange={value => setLanguage(value)}
@@ -178,19 +209,19 @@ const SearchDoctors = ({ navigation }) => {
                         items={distanceList}
                     />
                 </View>
+                <Button
+                    title="Search Doctors"
+                    buttonStyle={{ backgroundColor: "#035762", padding: 15, marginTop: 20 }}
+                    onPress={() => navigation.push('Browse Doctors', {
+                        language,
+                        expertise,
+                        walkin: walkin ? 'True': 'False',
+                        location,
+                        maxDistance
+                    }) }
+                    disabled={!location}
+                />
             </View>
-            <Button
-                title="Search Doctors"
-                buttonStyle={{ backgroundColor: "#035762", padding: 15, marginTop: 20 }}
-                onPress={() => navigation.push('Browse Doctors', {
-                    language,
-                    expertise,
-                    walkin: walkin ? 'True': 'False',
-                    location,
-                    maxDistance
-                }) }
-                disabled={!location}
-            />
             <Menu navigation={navigation} />
         </View>
     );
@@ -212,14 +243,22 @@ const styles = StyleSheet.create({
     },
     searchBar: {
         padding: 10,
+        position: 'absolute',
         backgroundColor: '#fff',
-        marginTop: 15,
-        marginBottom: 30
+        width: '100%',
+        justifyContent: 'center'
     },
     picker: {
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginBottom: 30
+    },
+    searchContainer: {
+        zIndex: 10,
+        overflow: 'visible',
+        height: 50,
+        flexGrow: 0,
+        flexShrink: 0
     }
 });
