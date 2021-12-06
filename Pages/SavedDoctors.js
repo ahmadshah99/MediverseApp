@@ -37,17 +37,20 @@ const SavedDoctors = ({ navigation }) => {
     }
 
 
-    useEffect(async () => {
-        axios.get(`${API_URL}/user/findOne`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `bearer ${await getData("jwt")}`
-            }
+    useEffect(() => {
+        async function getSavedDoctors () {
+            axios.get(`${API_URL}/user/findOne`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `bearer ${await getData("jwt")}`
+                }
 
-        }).then((res) => {
-            console.log(res.data.savedDoctors)
-            setSavedDoctors(res.data.savedDoctors)
-        })
+            }).then((res) => {
+                console.log(res.data, 'UJUJUJUJUJU')
+                setSavedDoctors(res.data.savedDoctors)
+            })
+        }
+        getSavedDoctors()
     }, [])
 
 

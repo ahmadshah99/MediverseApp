@@ -58,25 +58,17 @@ const TranslationResults = ({ navigation, route }) => {
             /> */}
 
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
-                <View style = {{ borderColor: "#53D8C7", borderWidth: 2, padding: 5, borderRadius: 50 }}>
+                <View style={[styles.resultStyle, {borderColor: "#53D8C7"}]}>
                     <Text h4>Input Medicine Name</Text>
                     <Text style = {{ color: "#CAC7C7", fontSize: 20, textDecorationLine: "underline" }}>{targetMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose : "Not Found"}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient : "Not Found"}</Text>
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>Full ingredient list</Text>
-                        <Entypo name="chevron-down" size={20} color="black" />
-                    </View>
                     {/* <Image source={TylenolImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
                 </View>
-
-                <AntDesign name="arrowdown" size={50} color="#53D8C7" />
-
-
             </View>
 
             {equivMedicine !== '' ?
-            <View style = {{ borderColor: "#CAC7C7", borderWidth: 2, padding: 5, borderRadius: 50 }}>
+            <View style={[styles.resultStyle, {borderColor: "#CAC7C7"}]}>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
                         <Text h4>Known Equivalents </Text>
                         <View style = {{ marginTop: 15 }}>
@@ -88,10 +80,6 @@ const TranslationResults = ({ navigation, route }) => {
                     <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{equivMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient}</Text>
-                    <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Text style = {{ marginLeft: 130, fontSize: 12 }}>full Ingredient list</Text>
-                        <Entypo name="chevron-down" size={20} color="black" />
-                    </View>
                     {/* <Image source={DolipraneImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
                 </View>
 
@@ -101,7 +89,7 @@ const TranslationResults = ({ navigation, route }) => {
         </ScrollView>
             <Menu navigation={navigation} />
         </View>
-      
+
     )
 };
 
@@ -117,5 +105,10 @@ const styles = StyleSheet.create({
         marginBottom: 30,
         marginTop: 15,
         backgroundColor: '#fff',
+    },
+    resultStyle: {
+        borderWidth: 2,
+        padding: 5,
+        borderRadius: 20
     }
 });

@@ -53,6 +53,7 @@ const DoctorProfile = ({navigation, route}) => {
     ]
 
     const handleHeartPress = async () => {
+        console.log(route.params.item, 'DOCTOR ID HERE')
         if(isPremium){
             axios.patch(`${API_URL}/user/addSavedDoctor`, {
                 id: route.params.item._id
