@@ -17,7 +17,7 @@ const Menu = ({ navigation }) => {
     const [isError, setIsError] = useState(false);
     const [message, setMessage] = useState('');
 
-    async function handleSavedDoctorsNav(){
+    async function handleSavedDoctorsNav() {
         fetch(`${API_URL}/user/isPremium`, {
             method: 'GET',
             headers: {
@@ -25,24 +25,24 @@ const Menu = ({ navigation }) => {
                 'Authorization': `Bearer ${await getData("jwt")}`
             }
         }).then(async res => {
-            try{
+            try {
                 const jsonRes = await res.json();
-                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                console.log("Response: \n" + JSON.stringify(jsonRes));
                 if (res.status === 200) {
                     setIsError(false);
                     setMessage("User profile data fetched successfully.");
                     const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
                     setIsPremium(isPrem);
-                    if(isPrem){
+                    if (isPrem) {
                         navigation.navigate('Saved Doctors');
-                    }else{
+                    } else {
                         alert("Become a premium user to see saved doctors!")
                     }
                 } else {
                     setIsError(true);
-                    setMessage(jsonRes.message);          
+                    setMessage(jsonRes.message);
                 }
-            }catch(err){
+            } catch (err) {
                 console.log(err);
             }
         });
@@ -62,11 +62,16 @@ const Menu = ({ navigation }) => {
                     {MedkitIcon}
                 </View>
             </TouchableHighlight>
+            <TouchableHighlight onPress={() => navigation.navigate("Home")}>
+                <View>
+                    {HomeIcon}
+                </View>
+            </TouchableHighlight>
             <TouchableHighlight onPress={() => handleSavedDoctorsNav()}>
                 <View>
                     {HeartIcon}
                 </View>
-        
+
             </TouchableHighlight>
             <TouchableHighlight onPress={() => navigation.navigate('User Profile')}>
                 <View>
