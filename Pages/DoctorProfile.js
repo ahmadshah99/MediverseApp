@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, Image, FlatList, TouchableHighlight} from 'react-native';
-import {Text, Avatar, Icon, Rating} from 'react-native-elements';
+import {Text, Avatar, Icon, Rating, Button} from 'react-native-elements';
 
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import Booking from "./Booking";
@@ -8,6 +8,9 @@ import DoctorReviewHolder from "../components/DoctorReviewHolder";
 import { Linking } from "react-native";
 import { storeData, getData } from '../utils/auth.js';
 import { AntDesign } from '@expo/vector-icons';
+
+import { FontAwesome } from '@expo/vector-icons';
+import axios from "axios";
 
 const DoctorProfile = ({navigation, route}) => {
     const API_URL = 'http://localhost:5001';
@@ -52,6 +55,7 @@ const DoctorProfile = ({navigation, route}) => {
     function handleHeartPress(){
         if(isPremium){
             alert("Doctor saved");
+            // axios.patch('')
         }else{
             alert("Please become a premium user to save a doctor for future refrence.");
         }
@@ -68,7 +72,7 @@ const DoctorProfile = ({navigation, route}) => {
         }).then(async res => {
             try{
                 const jsonRes = await res.json();
-                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                console.log("Response: \n" + JSON.stringify(jsonRes));
                 if (res.status === 200) {
                     setIsError(false);
                     setMessage("User profile data fetched successfully.");
@@ -76,7 +80,7 @@ const DoctorProfile = ({navigation, route}) => {
                     setIsPremium(isPrem);
                 } else {
                     setIsError(true);
-                    setMessage(jsonRes.message);          
+                    setMessage(jsonRes.message);
                 }
             }catch(err){
                 console.log(err);
@@ -100,8 +104,8 @@ const DoctorProfile = ({navigation, route}) => {
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.streetAddress }</Text>
                     <Text style={{fontStyle: 'italic'}}>{ route.params.item.address.city }, { route.params.item.address.country }</Text>
                     <Button
-                        icon={ <FontAwesome5 name="map" size={16} color="#53D8C7"/>}
-                        title="Derb Sidi Messaoud 40, Marrakesh, Morocco"
+                        icon={ <FontAwesome name="map" size={16} color="#53D8C7"/>}
+                        title={}
                         titleStyle={{color: "#53D8C7", padding: 10}}
                         buttonStyle={{backgroundColor: "#fff", width: 250, height: 50, alignItems: 'center'}}
                         onPress={() => Linking.openURL('https://www.google.com/maps/search/?api=1&query=' + 'Derb Sidi Messaoud 40, Marrakesh, Morocco')}
@@ -122,7 +126,7 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
                 {
-                    isPremium ?        
+                    isPremium ?
                 <View>
                     <DoctorReviewHolder doctor={route.params.item}/>
                  </View>

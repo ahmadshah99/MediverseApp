@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, ScrollView, Image, TouchableHighlight,} from 'react-native';
 import { Text, Card, Icon, SearchBar, Button } from 'react-native-elements';
 import Header from '../components/Header';
@@ -23,10 +23,14 @@ const MedicineTranslator = ({ navigation }) => {
     const [homeCountry, setHomeCountry] = useState('');
     const [medicinesRelatedToCountry, setMedicineRelatedToCountry] = useState('');
     const [isError, setIsError] = useState(false);
-    const [message, setMessage] = useState(''); 
+    const [message, setMessage] = useState('');
     const [isNewMedDialog, setIsNewMedDialog] = useState(false);
 
     const supportedMedications = JSON.stringify(translationList);
+
+    useEffect(() => {
+        handleTokenChange().then(() => {})
+    }, [])
 
     function handleNavigationToTranslationResults(){
         if(toggleState === true && medicineSearchValue !== '' && countrySearchValue !== ''){
@@ -49,12 +53,14 @@ const MedicineTranslator = ({ navigation }) => {
         }).then(async res => {
             try{
                 const jsonRes = await res.json();
-                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                console.log("Response: \n" + JSON.stringify(jsonRes));
                 if (res.status === 200) {
                     setIsError(false);
                     setMessage("Home country fetched successfully");
                     const homeCountry = JSON.parse(JSON.stringify(jsonRes)).country;
                     setHomeCountry(homeCountry);
+
+                    console.log(homeCountry, '<-----')
 
                     //set medicines data
                     let medicinesArr = [];
@@ -68,14 +74,14 @@ const MedicineTranslator = ({ navigation }) => {
                 setMedicineRelatedToCountry(medicinesArr);
                 } else {
                     setIsError(true);
-                    setMessage(jsonRes.message);          
+                    setMessage(jsonRes.message);
                 }
-            }catch(err){
+            } catch(err){
                 console.log(err);
             }
         });
 
-    } 
+    }
 
     return (
         <View style={styles.mainView}>
@@ -98,13 +104,16 @@ const MedicineTranslator = ({ navigation }) => {
                     {/* <FontAwesome5 name="camera" size={16} color="#53D8C7" /> */}
                     {/* <Text style = {{ color: "#53D8C7" }}> IMAGE {"\n"} SEARCH</Text> */}
                 </View>
-    
+
             </View>
 
-            <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10}}>Use my location?</Text>
-                <Switch value={true} color="#035762" />
-            </View>
+            {/*<View style={{ display: 'flex', flexDirection: 'row' }}>*/}
+            {/*    <Text h5 style={{ color: '#000000', fontWeight: 'bold', paddingRight: 10}}>Use my location?</Text>*/}
+            {/*    <Switch value={toggleState} onValueChange={() => {*/}
+            {/*        setToggleState(!toggleState)*/}
+            {/*        handleTokenChange()*/}
+            {/*    }} color="#035762" />*/}
+            {/*</View>*/}
 
         {/* <View>
             <ScrollView contentContainerStyle={styles.mainView}>
@@ -118,15 +127,6 @@ const MedicineTranslator = ({ navigation }) => {
                     <FontAwesome5 onPress={() => handleTokenChange()}  name = {(toggleState) ? "toggle-on" : "toggle-off"} size={24} color="black" />
                 </View>
             </TouchableHighlight> */}
-            {/* <SearchBar
-                placeholder="Country"
-                containerStyle={styles.searchBar}
-                inputContainerStyle={{backgroundColor: '#fff'}}
-                lightTheme
-                value={countrySearchValue}
-                onChangeText={setCountrySearchValue}
-                round
-            /> */}
 
 <View style={{ flexDirection: "row" }}>
 <Text style={{ fontWeight: 'bold', color: 'red', marginTop: 15, fontSize: 18 }}>* </Text>
@@ -180,7 +180,7 @@ const MedicineTranslator = ({ navigation }) => {
 
                         }} name="upload" size={24} color="#53D8C7" />
                     <Text style = {{ color: "#53D8C7" }}> SUBMIT NEW {"\n"} MEDICATION</Text>
-                    <DialogInput 
+                    <DialogInput
                         isDialogVisible={isNewMedDialog}
                         title={"Submit new medicine for " + homeCountry}
                         message={"We will use your suggestion to improve our app!"}
@@ -232,7 +232,7 @@ const MedicineTranslator = ({ navigation }) => {
                 buttonStyle={{backgroundColor: "#035762", padding: 15, borderRadius: 100, width: 100, alignItems: 'center'}}
                 onPress={() => handleNavigationToTranslationResults() }
             />
-    
+
 
         <Menu navigation={navigation} />
         </View>

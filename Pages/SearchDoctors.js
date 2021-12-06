@@ -330,7 +330,7 @@ const SearchDoctors = ({ navigation }) => {
         <View style={styles.mainView}>
             <Text h3 style={styles.titleText}>Find a Doctor</Text>
             <View style={{ width: '100%'}}>
-                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10 }}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Show walk-in only?</Text>
                     <Switch value={walkin} onValueChange={() => setWalkin(walkin => !walkin)} color="#035762" />
                 </View>
@@ -386,7 +386,7 @@ const SearchDoctors = ({ navigation }) => {
                     {/*/>*/}
                 </View>
 
-                <View style={[styles.picker, {marginTop: 10}]}>
+                <View style={[styles.picker, {marginTop: 20}]}>
                     <Text h5 style={{ color: '#000000', fontWeight: 'bold' }}>Select language</Text>
                     <RNPickerSelect
                         style={[styles.select]}
@@ -428,7 +428,7 @@ const SearchDoctors = ({ navigation }) => {
                     </View>
                 }
             </View>
-        
+
             {/* <Button
              icon={ <FontAwesome5 name="arrow-right" size={16} color="#53D8C7"/>}
                 title="Go!"
@@ -457,9 +457,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     searchBar: {
-        marginBottom: 30,
+        marginBottom: 15,
         marginTop: 15,
-        backgroundColor: '#fff',
         // boxShadow:"0px 2px 20px rgba(0, 0, 0, 0.25)",
         borderRadius:50,
         padding: 10,
