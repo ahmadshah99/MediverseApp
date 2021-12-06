@@ -5,8 +5,15 @@ import {Text, Avatar, Icon, Rating} from 'react-native-elements';
 import DoctorInfoTile from "../components/atoms/DoctorInfoTile";
 import Booking from "./Booking";
 import DoctorReviewHolder from "../components/DoctorReviewHolder";
+import { storeData, getData } from '../utils/auth.js';
 
 const DoctorProfile = ({navigation, route}) => {
+    const API_URL = 'http://localhost:5001';
+    const [isPremium, setIsPremium] = useState(true);
+    const [isError, setIsError] = useState(false);
+    const [message, setMessage] = useState('');
+
+
     const firstTileContent = [
         {
             title: 'Speciality',
@@ -39,6 +46,35 @@ const DoctorProfile = ({navigation, route}) => {
                 </View>
         }
     ]
+
+
+    useEffect(async () => {
+        fetch(`${API_URL}/user/isPremium`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${await getData("jwt")}`
+            }
+        }).then(async res => {
+            try{
+                const jsonRes = await res.json();
+                console.log("Response: \n" + JSON.stringify(jsonRes));   
+                if (res.status === 200) {
+                    setIsError(false);
+                    setMessage("User profile data fetched successfully.");
+                    const isPrem = JSON.parse(JSON.stringify(jsonRes)).isPremium;
+                    setIsPremium(isPrem);
+                } else {
+                    setIsError(true);
+                    setMessage(jsonRes.message);          
+                }
+            }catch(err){
+                console.log(err);
+            }
+        });
+    }, [])
+
+
     return (
         <ScrollView contentContainerStyle={styles.mainView}>
             <Text h3 style={{ fontWeight: 'bold' }}>Dr. { route.params.item.firstName } { route.params.item.lastName }</Text>
@@ -64,9 +100,13 @@ const DoctorProfile = ({navigation, route}) => {
                     <DoctorInfoTile tileContent={firstTileContent} />
                     <DoctorInfoTile tileContent={secondTileContent} tileTitle="Insurance & Payout" />
                 </ScrollView>
+                {
+                    isPremium &&         
                 <View>
-                   <DoctorReviewHolder doctor={route.params.item}/>
-                </View>
+                    <DoctorReviewHolder doctor={route.params.item}/>
+                 </View>
+                }
+
             </ScrollView>
         </ScrollView>
     )
