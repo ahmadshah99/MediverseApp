@@ -59,8 +59,8 @@ const TranslationResults = ({ navigation, route }) => {
 
             <View style = {{ flexDirection: "row", alignItems: "center", marginBottom: 20 }}>
                 <View style={[styles.resultStyle, {borderColor: "#53D8C7"}]}>
-                    <Text h4>Input Medicine Name</Text>
-                    <Text style = {{ color: "#CAC7C7", fontSize: 20, textDecorationLine: "underline" }}>{targetMedicine}</Text>
+                    <Text h5>Input Medicine Name</Text>
+                    <Text style = {{ color: "#53D8C7", fontSize: 20}}>{targetMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose : "Not Found"}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {doesMedicineExist ? TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient : "Not Found"}</Text>
                     {/* <Image source={TylenolImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
@@ -70,14 +70,14 @@ const TranslationResults = ({ navigation, route }) => {
             {equivMedicine !== '' ?
             <View style={[styles.resultStyle, {borderColor: "#CAC7C7"}]}>
                     <View style = {{ flexDirection: "row", alignItems: "center" }}>
-                        <Text h4>Known Equivalents </Text>
+                        <Text h5>Known Equivalents </Text>
                         <View style = {{ marginTop: 15 }}>
                             <CountryFlag isoCode={CountryNameToCode.find(country => country.name === targetCountry).code} size={25} />
                             <Text>{targetCountry}</Text>
                         </View>
                     </View>
                     {/* <Text style = {{ fontSize: 22 }}>Accuracy: <Text style = {{ color: "#27AE60" }}>94%</Text></Text> */}
-                    <Text style = {{ color: "#53D8C7", fontSize: 20, textDecorationLine: "underline" }}>{equivMedicine}</Text>
+                    <Text style = {{  color: "#53D8C7", fontSize: 20 }}>{equivMedicine}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Purpose: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).purpose}</Text>
                     <Text><Text style={{ fontWeight: "bold" }}>Active Ingredient: </Text> {TranslationList.find(medID => medID.medicines.some(medicine => medicine.name === targetMedicine)).activeIngredient}</Text>
                     {/* <Image source={DolipraneImage} style = {{ width: 150, height: 150, resizeMode: 'contain' }} /> */}
@@ -101,6 +101,10 @@ const styles = StyleSheet.create({
         marginBottom: 250
 
     },
+    h5 : {
+        fontSize: 14,
+        color: '#035762'
+    },
     searchBar: {
         marginBottom: 30,
         marginTop: 15,
@@ -109,6 +113,7 @@ const styles = StyleSheet.create({
     resultStyle: {
         borderWidth: 2,
         padding: 5,
-        borderRadius: 20
+        borderRadius: 20,
+        color: '#CAC7C7'
     }
 });
